@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary-fixed-variant": "#92002a", "on-primary-fixed": "#001d31", "on-surface": "#0f172a", "background": "#f8fafc", "outline": "#64748b", "on-secondary-fixed-variant": "#005236", "surface-container-lowest": "#ffffff", "primary": "#006194", "outline-variant": "#e2e8f0", "tertiary": "#e11d48", "tertiary-fixed": "#ffe4e6", "on-surface-variant": "#64748b", "on-background": "#0f172a", "primary-fixed": "#e0f2fe", "surface-container": "#f1f5f9", "surface-variant": "#e2e8f0", "error": "#ef4444", "on-tertiary-fixed": "#4c0519", "inverse-on-surface": "#f8fafc", "on-primary-fixed-variant": "#0369a1", "surface-bright": "#ffffff", "on-secondary": "#ffffff", "surface-container-low": "#f8fafc", "surface-container-high": "#e2e8f0", "on-tertiary": "#ffffff", "surface-container-highest": "#cbd5e1", "on-primary": "#ffffff", "secondary-fixed": "#dcfce7", "inverse-surface": "#1e293b", "error-container": "#fee2e2", "on-secondary-fixed": "#022c22", "on-error-container": "#991b1b", "on-tertiary-container": "#881337", "secondary-container": "#bbf7d0", "primary-fixed-dim": "#bae6fd", "on-primary-container": "#ffffff", "secondary": "#059669", "surface": "#f8fafc", "tertiary-fixed-dim": "#fecdd3", "inverse-primary": "#7dd3fc", "secondary-fixed-dim": "#86efac", "primary-container": "#0284c7", "on-error": "#ffffff", "surface-tint": "#0284c7", "on-secondary-container": "#065f46", "tertiary-container": "#f43f5e", "surface-dim": "#e2e8f0" }, borderRadius: { "DEFAULT": "0.375rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.25rem", "3xl": "1.5rem", "full": "9999px" }, spacing: { "space-md": "1rem", "space-2xs": "0.25rem", "space-xs": "0.5rem", "space-sm": "0.75rem", "space-lg": "1.25rem", "space-xl": "1.75rem", "space-2xl": "2.5rem", "margin": "1.25rem" }, fontFamily: { "label-sm": ["Plus Jakarta Sans"], "body-md": ["Inter"], "display-hero": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"] }, fontSize: { "label-sm": ["11px", { lineHeight: "15px", letterSpacing: "0.02em", fontWeight: "600" }], "body-md": ["14px", { lineHeight: "21px", letterSpacing: "0em", fontWeight: "400" }], "display-hero": ["34px", { lineHeight: "42px", letterSpacing: "-0.03em", fontWeight: "800" }], "headline-lg": ["26px", { lineHeight: "34px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-sm": ["17px", { lineHeight: "23px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "600" }], "body-lg": ["15px", { lineHeight: "23px", letterSpacing: "0em", fontWeight: "400" }], "body-sm": ["12px", { lineHeight: "17px", letterSpacing: "0.01em", fontWeight: "400" }], "headline-md": ["21px", { lineHeight: "27px", letterSpacing: "-0.015em", fontWeight: "700" }], "label-lg": ["13px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "600" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#f8fafc;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-[#f8fafc] text-slate-900 font-body-md min-h-screen flex flex-col antialiased selection:bg-sky-100"><main class="flex flex-col relative w-full pb-28 bg-[#f8fafc] px-4 sm:px-5 min-h-screen pt-safe max-w-md mx-auto"><div class="flex flex-col w-full space-y-4 pt-2">
+<!-- Clean Header -->
+<div class="flex items-center justify-between pt-1 pb-1">
+<div>
+<h1 class="font-headline-md text-[22px] font-bold text-slate-900 tracking-tight">Profil Saya</h1>
+<p class="font-body-sm text-xs text-slate-500 mt-0.5">Kelola akun, foto lokal, dan preferensi wisata</p>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Notifikasi" class="w-9 h-9 rounded-full bg-white border border-slate-200/70 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[19px]">notifications</span>
+</button>
+<button aria-label="Pengaturan Cepat" class="w-9 h-9 rounded-full bg-white border border-slate-200/70 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[19px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Account Status / Guest Switch Strip -->
+<!-- Guest Mode Notice Banner (Hidden by Default) -->
+<!-- Minimal Elegant Profile Card -->
+<div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/60 flex flex-col gap-4 relative overflow-hidden" id="guest-profile-card"><div class="flex items-start gap-4"><div class="relative shrink-0"><div class="w-18 h-18 w-[72px] h-[72px] rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-700 shadow-inner"><span class="material-symbols-outlined text-[36px]">person</span></div><div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-slate-200 border-2 border-white flex items-center justify-center text-slate-500"><span class="material-symbols-outlined text-[12px]">lock</span></div></div><div class="flex flex-col min-w-0 flex-1"><div class="flex items-center justify-between gap-1.5"><h2 class="font-bold text-base text-slate-900 truncate">Pengunjung Tamu</h2><span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-500 font-mono font-medium shrink-0">Tamu</span></div><p class="font-body-sm text-xs text-slate-500 mt-1 leading-snug">Masuk atau buat akun untuk menikmati semua fitur JemberGo secara optimal.</p></div></div><div class="grid grid-cols-2 gap-2 pt-1"><button class="py-2.5 px-3 rounded-xl bg-[#0c192c] text-white hover:bg-slate-800 transition-all flex items-center justify-center gap-1.5 text-xs font-semibold shadow-sm active:scale-95"><span class="material-symbols-outlined text-[16px]">login</span><span class="">Masuk Akun</span></button><button class="py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all flex items-center justify-center gap-1.5 text-xs font-semibold active:scale-95"><span class="material-symbols-outlined text-[16px]">person_add</span><span class="">Daftar Baru</span></button></div><div class="bg-slate-50 rounded-2xl p-3 border border-slate-200/60 flex flex-col gap-1.5"><div class="flex items-center gap-1.5 text-xs font-semibold text-slate-800"><span class="material-symbols-outlined text-[16px] text-sky-700">stars</span><span class="">Keuntungan Memiliki Akun</span></div><p class="text-[11px] text-slate-500 leading-relaxed">Simpan tiket elektronik, simpan destinasi favorit, serta kelola preferensi wisata Anda antar-perangkat.</p></div></div>
+<!-- Drawer Edit Informasi Pribadi (Expandable) -->
+<!-- Section Destinasi Favorit -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-rose-500 text-[17px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Destinasi Favorit</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 font-semibold text-[11px] border border-rose-100" id="fav-count-badge">0 Tersimpan</span>
+</div>
+<div class="flex flex-col gap-2" id="favorite-destinations-list"><div class="bg-white rounded-2xl p-5 text-center border border-dashed border-slate-200 flex flex-col items-center gap-2"><div class="w-10 h-10 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center"><span class="material-symbols-outlined text-[22px]">favorite_border</span></div><div class="flex flex-col items-center"><p class="text-xs font-bold text-slate-800">Belum Ada Favorit Tersimpan</p><p class="text-[11px] text-slate-500 mt-0.5 max-w-[240px]">Login untuk menyimpan dan menyinkronkan destinasi favorit Anda di Jember.</p></div><button class="mt-1 py-1.5 px-4 rounded-xl bg-slate-900 text-white text-xs font-semibold flex items-center gap-1 hover:bg-slate-800 transition-all active:scale-95"><span class="material-symbols-outlined text-[14px]">login</span><span class="">Masuk</span></button></div></div>
+</div>
+<!-- Pengaturan & Menu Akun -->
+<div class="flex flex-col gap-2 pt-1">
+<span class="text-xs font-bold text-slate-700 uppercase tracking-wider px-1">Pengaturan &amp; Layanan</span>
+<div class="bg-white rounded-3xl shadow-sm border border-slate-200/60 overflow-hidden divide-y divide-slate-100"><button class="w-full flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" onclick="showLanguageAlert()"><div class="flex items-center gap-3 min-w-0"><div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">language</span></div><div class="min-w-0"><span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Pilihan Bahasa</span><span class="text-[11px] text-slate-500">Bahasa tampilan antarmuka</span></div></div><div class="flex items-center p-1 bg-slate-100 rounded-full border border-slate-200/60 shrink-0"><span class="px-2.5 py-0.5 rounded-full bg-[#0c192c] text-white font-bold text-[11px] shadow-sm">ID</span><span class="px-2.5 py-0.5 rounded-full text-slate-500 font-medium text-[11px]">EN</span></div></button><a class="flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" href="#help" onclick="alert('Membuka Pusat Informasi &amp; Panduan Wisata JemberGo.'); return false;"><div class="flex items-center gap-3 min-w-0"><div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">help_outline</span></div><div class="min-w-0"><span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Bantuan &amp; Pusat Informasi</span><span class="text-[11px] text-slate-500">Panduan &amp; kontak darurat wisata</span></div></div><span class="material-symbols-outlined text-slate-400 text-[18px] group-hover:translate-x-0.5 transition-transform shrink-0">chevron_right</span></a><a class="flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" href="#terms" onclick="alert('Membuka Syarat &amp; Ketentuan Layanan JemberGo.'); return false;"><div class="flex items-center gap-3 min-w-0"><div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">gavel</span></div><div class="min-w-0"><span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Syarat &amp; Ketentuan</span><span class="text-[11px] text-slate-500">Aturan pemesanan tiket &amp; layanan</span></div></div><span class="material-symbols-outlined text-slate-400 text-[18px] group-hover:translate-x-0.5 transition-transform shrink-0">chevron_right</span></a><a class="flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" href="#privacy" onclick="alert('Membuka Dokumen Kebijakan Privasi Pengguna JemberGo.'); return false;"><div class="flex items-center gap-3 min-w-0"><div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">verified_user</span></div><div class="min-w-0"><span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Kebijakan Privasi</span><span class="text-[11px] text-slate-500">Privasi data &amp; keamanan</span></div></div><span class="material-symbols-outlined text-slate-400 text-[18px] group-hover:translate-x-0.5 transition-transform shrink-0">chevron_right</span></a><a class="flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" href="#about" onclick="alert('JemberGo v1.2.0 - Aplikasi Panduan &amp; Tiket Wisata Resmi Kabupaten Jember.'); return false;"><div class="flex items-center gap-3 min-w-0"><div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">info</span></div><div class="min-w-0"><span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Tentang JemberGo</span><span class="text-[11px] text-slate-500">Versi 1.2.0 • Dinas Pariwisata Jember</span></div></div><span class="material-symbols-outlined text-slate-400 text-[18px] group-hover:translate-x-0.5 transition-transform shrink-0">chevron_right</span></a></div>
+</div>
+<!-- Tombol Keluar dari Akun (Logout Minimalist Soft Red) -->
+<div class="flex flex-col gap-2 items-center pt-2">
+<div class="flex flex-col items-center text-center mt-1">
+<span class="text-[11px] text-slate-400 font-medium">JemberGo App v1.2.0 • Dinas Pariwisata Jember</span>
+<span class="text-[10px] text-slate-400 mt-0.5">Mendukung Pariwisata Ramah &amp; Terintegrasi</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Bottom Navigation Bar (Identik 100% dengan Jelajahi: Floating White Capsule Dock) -->
+<nav class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[92%] max-w-sm px-3 py-1.5 flex items-center justify-between z-50 rounded-full bg-white/95 backdrop-blur-md shadow-2xl border border-slate-200/80" data-purpose="floating-dock">
+<a aria-label="Beranda" class="flex-1 flex flex-col items-center justify-center py-1 rounded-full text-slate-500 hover:text-slate-700 transition-colors" data-path="beranda" href="#">
+<span class="material-symbols-outlined text-[20px]">home</span>
+<span class="text-[10px] font-label-sm font-medium tracking-tight mt-0.5">Beranda</span>
+</a>
+<a aria-label="Jelajahi" class="flex-1 flex flex-col items-center justify-center py-1 rounded-full text-slate-500 hover:text-slate-700 transition-colors" data-path="jelajahi" href="#">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+<span class="text-[10px] font-label-sm font-medium tracking-tight mt-0.5">Jelajahi</span>
+</a>
+<a aria-label="Peta" class="flex-1 flex flex-col items-center justify-center py-1 rounded-full text-slate-500 hover:text-slate-700 transition-colors" data-path="peta" href="#">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span class="text-[10px] font-label-sm font-medium tracking-tight mt-0.5">Peta</span>
+</a>
+<a aria-label="Tiket" class="flex-1 flex flex-col items-center justify-center py-1 rounded-full text-slate-500 hover:text-slate-700 transition-colors" data-path="tiket" href="#">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+<span class="text-[10px] font-label-sm font-medium tracking-tight mt-0.5">Tiket</span>
+</a>
+<a aria-current="page" aria-label="Profil" class="flex-1 flex flex-col items-center justify-center py-1 rounded-full text-[#0c192c] transition-all active:scale-95" data-path="profil" href="#">
+<div class="w-8 h-8 rounded-full bg-[#0c192c] flex items-center justify-center text-white shadow-sm mb-0.5">
+<span class="material-symbols-outlined text-[18px] text-white" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<span class="text-[10px] font-label-sm font-bold text-[#0c192c] tracking-tight leading-none">Profil</span>
+</a>
+</nav>
+<script>
+  let favoriteCount = 2;
+
+  // Toggle Guest vs Authenticated view
+  function toggleAuthView(isAuth) {
+    const guestCard = document.getElementById('guest-card');
+    const loggedCard = document.getElementById('logged-user-card');
+    const statusLabel = document.getElementById('status-label');
+    const tabLoginBtn = document.getElementById('tab-login-btn');
+    const tabGuestBtn = document.getElementById('tab-guest-btn');
+
+    if (isAuth) {
+      guestCard.classList.add('hidden');
+      loggedCard.classList.remove('opacity-50');
+      statusLabel.textContent = 'Terhubung Aktif';
+      statusLabel.className = 'text-emerald-600 font-semibold';
+      tabLoginBtn.className = 'px-3 py-1 rounded-lg bg-white text-sky-700 shadow-sm transition-all';
+      tabGuestBtn.className = 'px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-all';
+    } else {
+      guestCard.classList.remove('hidden');
+      loggedCard.classList.add('opacity-50');
+      statusLabel.textContent = 'Mode Tamu (Belum Masuk)';
+      statusLabel.className = 'text-slate-500 font-semibold';
+      tabGuestBtn.className = 'px-3 py-1 rounded-lg bg-white text-sky-700 shadow-sm transition-all';
+      tabLoginBtn.className = 'px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-all';
+    }
+  }
+
+  // Toggle photo options tray highlight
+  function togglePhotoMenu() {
+    const tray = document.getElementById('photo-options-tray');
+    tray.classList.toggle('ring-2');
+    tray.classList.toggle('ring-sky-500/40');
+    tray.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Local photo operations
+  function handlePhotoAction(action) {
+    const img = document.getElementById('profile-img');
+    if (action === 'pilih') {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            img.src = event.target.result;
+            alert('Foto profil berhasil dimuat dari galeri lokal perangkat (USR-82910)!');
+          };
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      };
+      input.click();
+    } else if (action === 'kompres') {
+      alert('Foto lokal berhasil dikompresi otomatis untuk efisiensi penyimpanan perangkat.');
+    } else if (action === 'hapus') {
+      if (confirm('Hapus foto profil lokal Anda?')) {
+        img.src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80';
+        alert('Foto profil lokal berhasil dihapus.');
+      }
+    }
+  }
+
+  // Toggle Edit profile drawer
+  function toggleEditProfileDrawer() {
+    const sec = document.getElementById('edit-profile-section');
+    sec.classList.toggle('hidden');
+    if (!sec.classList.contains('hidden')) {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  function saveProfileChanges() {
+    const nameVal = document.getElementById('input-name').value;
+    const emailVal = document.getElementById('input-email').value;
+    const phoneVal = document.getElementById('input-phone').value;
+
+    if (nameVal) document.getElementById('display-name').textContent = nameVal;
+    if (emailVal) document.getElementById('display-email').textContent = emailVal;
+    if (phoneVal) document.getElementById('display-phone').textContent = phoneVal;
+
+    toggleEditProfileDrawer();
+    alert('Informasi pribadi berhasil diperbarui!');
+  }
+
+  // Password drawer and toggle
+  function togglePasswordForm() {
+    const formBox = document.getElementById('password-form-box');
+    formBox.classList.toggle('hidden');
+  }
+
+  function togglePasswordVisibility(fieldId, iconId) {
+    const field = document.getElementById(fieldId);
+    const icon = document.getElementById(iconId);
+    if (field.type === 'password') {
+      field.type = 'text';
+      icon.textContent = 'visibility_off';
+    } else {
+      field.type = 'password';
+      icon.textContent = 'visibility';
+    }
+  }
+
+  function savePasswordChanges() {
+    const pwd1 = document.getElementById('pwd-new').value;
+    const pwd2 = document.getElementById('pwd-confirm').value;
+
+    if (!pwd1 || !pwd2) {
+      alert('Mohon isi kata sandi baru dan konfirmasinya.');
+      return;
+    }
+    if (pwd1 !== pwd2) {
+      alert('Kata sandi baru dan konfirmasi tidak cocok!');
+      return;
+    }
+    alert('Kata sandi akun USR-82910 berhasil diubah!');
+    document.getElementById('pwd-new').value = '';
+    document.getElementById('pwd-confirm').value = '';
+    togglePasswordForm();
+  }
+
+  // Remove Favorite item
+  function removeFavorite(itemId, title) {
+    if (confirm(`Hapus "${title}" dari destinasi favorit Anda?`)) {
+      const el = document.getElementById(itemId);
+      if (el) {
+        el.remove();
+        favoriteCount--;
+        const badge = document.getElementById('fav-count-badge');
+        if (badge) badge.textContent = `${favoriteCount} Tersimpan`;
+
+        if (favoriteCount <= 0) {
+          const emptyState = document.getElementById('fav-empty-state');
+          if (emptyState) emptyState.classList.remove('hidden');
+        }
+      }
+    }
+  }
+
+  function showLanguageAlert() {
+    alert('Pilihan Bahasa: Saat ini aktif Bahasa Indonesia. Pilihan bahasa lain (English) segera hadir.');
+  }
+
+  // Logout handler
+  document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('Apakah Anda yakin ingin keluar dari akun JemberGo?')) {
+          logoutBtn.classList.add('opacity-50');
+          logoutBtn.innerText = 'Memproses Keluar...';
+          setTimeout(() => {
+            alert('Berhasil keluar. Beralih ke Mode Tamu.');
+            logoutBtn.classList.remove('opacity-50');
+            logoutBtn.innerText = 'Keluar dari Akun';
+            toggleAuthView(false);
+          }, 400);
+        }
+      });
+    }
+  });
+</script>
+<script class="">
+  (function() {
+    const originalToggleAuthView = window.toggleAuthView;
+    window.toggleAuthView = function(isAuth) {
+      if (originalToggleAuthView) {
+        try { originalToggleAuthView(isAuth); } catch (e) {}
+      }
+      const statusTitle = document.getElementById('status-title');
+      const statusDesc = document.getElementById('status-desc');
+      const statusBadgeIcon = document.getElementById('status-badge-icon');
+      const statusDot = document.getElementById('status-dot');
+      const statusPulse = document.getElementById('status-pulse');
+      const guestSubstrip = document.getElementById('guest-cta-substrip');
+      const tabLoginBtn = document.getElementById('tab-login-btn');
+      const tabGuestBtn = document.getElementById('tab-guest-btn');
+
+      if (isAuth) {
+        if (statusTitle) statusTitle.textContent = 'Akun Terhubung';
+        if (statusDesc) statusDesc.textContent = 'Masuk sebagai Budi Santoso (USR-82910)';
+        if (statusBadgeIcon) {
+          statusBadgeIcon.className = 'w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100';
+          statusBadgeIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">verified</span>';
+        }
+        if (statusDot) {
+          statusDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-emerald-500';
+        }
+        if (statusPulse) {
+          statusPulse.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75';
+        }
+        if (guestSubstrip) guestSubstrip.classList.add('hidden');
+        if (tabLoginBtn) tabLoginBtn.className = 'px-2.5 py-1 rounded-lg bg-white text-sky-700 shadow-xs transition-all flex items-center gap-1';
+        if (tabGuestBtn) tabGuestBtn.className = 'px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-all flex items-center gap-1';
+      } else {
+        if (statusTitle) statusTitle.textContent = 'Mode Tamu (Belum Login)';
+        if (statusDesc) statusDesc.textContent = 'Akses profil terbatas • Silakan Masuk';
+        if (statusBadgeIcon) {
+          statusBadgeIcon.className = 'w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 border border-slate-200';
+          statusBadgeIcon.innerHTML = '<span class="material-symbols-outlined text-[18px]">no_accounts</span>';
+        }
+        if (statusDot) {
+          statusDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-slate-400';
+        }
+        if (statusPulse) {
+          statusPulse.className = 'hidden';
+        }
+        if (guestSubstrip) guestSubstrip.classList.remove('hidden');
+        if (tabGuestBtn) tabGuestBtn.className = 'px-2.5 py-1 rounded-lg bg-white text-sky-700 shadow-xs transition-all flex items-center gap-1';
+        if (tabLoginBtn) tabLoginBtn.className = 'px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-all flex items-center gap-1';
+      }
+    };
+  })();
+</script>
+
+
+</body></html>

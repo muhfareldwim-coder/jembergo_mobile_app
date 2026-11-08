@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary-fixed-variant": "#92002a", "on-primary-fixed": "#001d31", "on-surface": "#0f172a", "background": "#f8fafc", "outline": "#64748b", "on-secondary-fixed-variant": "#005236", "surface-container-lowest": "#ffffff", "primary": "#006194", "outline-variant": "#e2e8f0", "tertiary": "#e11d48", "tertiary-fixed": "#ffe4e6", "on-surface-variant": "#64748b", "on-background": "#0f172a", "primary-fixed": "#e0f2fe", "surface-container": "#f1f5f9", "surface-variant": "#e2e8f0", "error": "#ef4444", "on-tertiary-fixed": "#4c0519", "inverse-on-surface": "#f8fafc", "on-primary-fixed-variant": "#0369a1", "surface-bright": "#ffffff", "on-secondary": "#ffffff", "surface-container-low": "#f8fafc", "surface-container-high": "#e2e8f0", "on-tertiary": "#ffffff", "surface-container-highest": "#cbd5e1", "on-primary": "#ffffff", "secondary-fixed": "#dcfce7", "inverse-surface": "#1e293b", "error-container": "#fee2e2", "on-secondary-fixed": "#022c22", "on-error-container": "#991b1b", "on-tertiary-container": "#881337", "secondary-container": "#bbf7d0", "primary-fixed-dim": "#bae6fd", "on-primary-container": "#ffffff", "secondary": "#059669", "surface": "#f8fafc", "tertiary-fixed-dim": "#fecdd3", "inverse-primary": "#7dd3fc", "secondary-fixed-dim": "#86efac", "primary-container": "#0284c7", "on-error": "#ffffff", "surface-tint": "#0284c7", "on-secondary-container": "#065f46", "tertiary-container": "#f43f5e", "surface-dim": "#e2e8f0" }, borderRadius: { "DEFAULT": "0.375rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.25rem", "3xl": "1.5rem", "full": "9999px" }, spacing: { "space-md": "1rem", "space-2xs": "0.25rem", "space-xs": "0.5rem", "space-sm": "0.75rem", "space-lg": "1.25rem", "space-xl": "1.75rem", "space-2xl": "2.5rem", "margin": "1.25rem" }, fontFamily: { "label-sm": ["Plus Jakarta Sans"], "body-md": ["Inter"], "display-hero": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"] }, fontSize: { "label-sm": ["11px", { lineHeight: "15px", letterSpacing: "0.02em", fontWeight: "600" }], "body-md": ["14px", { lineHeight: "21px", letterSpacing: "0em", fontWeight: "400" }], "display-hero": ["34px", { lineHeight: "42px", letterSpacing: "-0.03em", fontWeight: "800" }], "headline-lg": ["26px", { lineHeight: "34px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-sm": ["17px", { lineHeight: "23px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.01em", fontWeight: "600" }], "body-lg": ["15px", { lineHeight: "23px", letterSpacing: "0em", fontWeight: "400" }], "body-sm": ["12px", { lineHeight: "17px", letterSpacing: "0.01em", fontWeight: "400" }], "headline-md": ["21px", { lineHeight: "27px", letterSpacing: "-0.015em", fontWeight: "700" }], "label-lg": ["13px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "600" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#f8fafc;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}}::-webkit-scrollbar{display:none;}</style></head><body class="bg-[#f8fafc] text-slate-900 font-body-md min-h-screen flex flex-col antialiased selection:bg-sky-100"><main class="flex flex-col relative w-full pb-28 bg-[#f8fafc] px-4 sm:px-5 min-h-screen pt-safe max-w-md mx-auto"><div class="flex flex-col w-full space-y-4 pt-2">
+<!-- Clean Header -->
+<div class="flex items-center justify-between pt-1 pb-1">
+<div>
+<h1 class="font-headline-md text-[22px] font-bold text-slate-900 tracking-tight">Profil Saya</h1>
+<p class="font-body-sm text-xs text-slate-500 mt-0.5">Kelola akun, foto lokal, dan preferensi wisata</p>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Notifikasi" class="w-9 h-9 rounded-full bg-white border border-slate-200/70 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[19px]">notifications</span>
+</button>
+<button aria-label="Pengaturan Cepat" class="w-9 h-9 rounded-full bg-white border border-slate-200/70 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[19px]">tune</span>
+</button>
+</div>
+</div>
+<!-- Minimal Elegant Profile Card -->
+<div class="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-slate-200/60 flex flex-col gap-4 relative overflow-hidden" id="logged-user-card">
+<!-- Top Profile Section -->
+<div class="flex items-start gap-4">
+<!-- Avatar & Camera Trigger -->
+<div class="relative shrink-0">
+<div class="w-18 h-18 w-[72px] h-[72px] rounded-2xl overflow-hidden shadow-inner bg-slate-100 ring-2 ring-slate-100">
+<img class="w-full h-full object-cover" data-alt="Close up warm professional portrait photo of a smiling Indonesian man named Budi Santoso wearing a clean casual outdoor jacket with soft tropical daylight background" id="profile-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDZYtXsf_HhC94jay4VbLfe_evxAsFHJ_Uvq2Xw803H50PzQb7IWnu7lWOnhyAUugUPDFabSueieYYA8y-8IXa0S1kH0KXecIea8Po-voRKwlKhwr7DpLE8CDPtYnHkmOMA4I2RwowKFFr9tGgrMGLGL0xmZMqAM8RQjvUuFIscRWTcy8khVNBMcD0lTL2rqi4DmDDV5ys6TXKEzyrFos310W_C76xVPwNnQ-NUSU">
+</div>
+<button class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-slate-900 text-white shadow-md flex items-center justify-center hover:bg-slate-800 active:scale-90 transition-transform" onclick="togglePhotoMenu()" title="Ganti Foto Profil">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span>
+</button>
+</div>
+<!-- Details -->
+<div class="flex flex-col min-w-0 flex-1"><div class="flex items-center justify-between gap-1.5"><h2 class="font-bold text-base text-slate-900 tracking-tight truncate" id="display-name">Budi Santoso</h2></div><div class="flex flex-col gap-1 mt-2.5 text-xs text-slate-500"><div class="flex items-center gap-2 min-w-0"><span class="material-symbols-outlined text-[15px] text-slate-400 shrink-0">mail</span><span class="truncate text-slate-600 font-medium" id="display-email">budi.santoso@email.com</span></div><div class="flex items-center gap-2 min-w-0"><span class="material-symbols-outlined text-[15px] text-emerald-600 shrink-0">chat</span><span class="truncate text-slate-600 font-medium" id="display-phone">+62 812-3456-7890</span></div></div></div>
+</div>
+<!-- Primary Edit Button Trigger -->
+<button class="w-full py-2.5 px-4 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all flex items-center justify-center gap-2 text-xs font-semibold active:scale-[0.98] shadow-sm" onclick="toggleEditProfileDrawer()">
+<span class="material-symbols-outlined text-[17px]">edit_note</span>
+<span class="">Edit Informasi Pribadi</span>
+</button>
+</div>
+<!-- Drawer Edit Informasi Pribadi (Expandable) -->
+<div class="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-slate-200/80 flex flex-col gap-3 hidden" id="edit-profile-section">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-sky-50 text-sky-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-[17px]">badge</span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-slate-900">Ubah Data Pribadi</h3>
+<p class="text-[11px] text-slate-500">Perbarui kontak &amp; akun</p>
+</div>
+</div>
+<button class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800" onclick="toggleEditProfileDrawer()">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</div>
+<form class="flex flex-col gap-2.5" onsubmit="event.preventDefault(); saveProfileChanges();">
+<div>
+<label class="block text-xs text-slate-600 mb-1 font-semibold">Nama Lengkap</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined text-[17px] text-slate-400 absolute left-3">person</span>
+<input class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:border-sky-600 focus:bg-white text-slate-900" id="input-name" type="text" value="Budi Santoso">
+</div>
+</div>
+<div>
+<label class="block text-xs text-slate-600 mb-1 font-semibold">Alamat Email</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined text-[17px] text-slate-400 absolute left-3">mail</span>
+<input class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:border-sky-600 focus:bg-white text-slate-900" id="input-email" type="email" value="budi.santoso@email.com">
+</div>
+</div>
+<div>
+<label class="block text-xs text-slate-600 mb-1 font-semibold">Nomor WhatsApp</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined text-[17px] text-emerald-600 absolute left-3">call</span>
+<input class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:border-sky-600 focus:bg-white text-slate-900" id="input-phone" type="text" value="+62 812-3456-7890">
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 text-xs font-semibold hover:bg-slate-200" onclick="toggleEditProfileDrawer()" type="button">Batal</button>
+<button class="flex-1 py-2 rounded-xl bg-slate-900 text-white text-xs font-semibold shadow-sm active:scale-95 transition-all" type="submit">Simpan Profil</button>
+</div>
+</form>
+</div>
+<!-- Section Destinasi Favorit -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-rose-500 text-[17px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Destinasi Favorit</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 font-semibold text-[11px] border border-rose-100" id="fav-count-badge">2 Tersimpan</span>
+</div>
+<div class="flex flex-col gap-2" id="favorite-destinations-list">
+<!-- Item 1: Tanjung Papuma -->
+<div class="bg-white rounded-2xl p-2.5 sm:p-3 shadow-sm border border-slate-200/60 flex items-center justify-between gap-3 group transition-all" id="fav-item-papuma">
+<div class="flex items-center gap-3 min-w-0">
+<img class="w-13 h-13 w-14 h-14 rounded-xl object-cover shrink-0 bg-slate-100" data-alt="Exotic tropical beach with large volcanic rocks clear turquoise sea waves white sands Tanjung Papuma Jember" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPUmjRGBsuRFJ7AaqH5i8oPSVTY25T75VhP3YtA2f6GUqBisaLPhYYp0v4Vnf-9ZvU2fB4B5QojiwfFJRnZGsqZbI85QqgtcNzxP6rSPVW0N0U2ZJQJvo3k92HQBTrbdcNrXeidF4kRp9jDsWXJ6nGb3lR693GEjkULMsEsxHDfWYrWrjVZjN8o2i5F8WUaPl2Tdjr9hckfD4DYd1dIyZwwwir0050tF9P26DOk9E">
+<div class="min-w-0">
+<span class="text-xs sm:text-sm font-bold text-slate-900 truncate block">Pantai Tanjung Papuma</span>
+<span class="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5 truncate">
+<span class="material-symbols-outlined text-[13px] text-sky-600">location_on</span> Wuluhan, Jember
+</span>
+<span class="inline-flex items-center gap-1 text-[10px] text-emerald-600 font-medium mt-0.5">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.8 • HTM Rp 25.000
+</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 hover:text-rose-600 hover:bg-rose-50 active:scale-90 transition-all flex items-center justify-center shrink-0" onclick="removeFavorite('fav-item-papuma', 'Pantai Tanjung Papuma')" title="Hapus dari Favorit">
+<span class="material-symbols-outlined text-[17px]">delete</span>
+</button>
+</div>
+<!-- Item 2: Puncak Rembangan -->
+<div class="bg-white rounded-2xl p-2.5 sm:p-3 shadow-sm border border-slate-200/60 flex items-center justify-between gap-3 group transition-all" id="fav-item-rembangan">
+<div class="flex items-center gap-3 min-w-0">
+<img class="w-13 h-13 w-14 h-14 rounded-xl object-cover shrink-0 bg-slate-100" data-alt="Lush green tea plantation and fresh mountain hill resort overlooking panoramic city view of Jember Puncak Rembangan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPkcxctBzwyKBNn0fxCuBy8Q-iqGf3AqX-RP_foj98n_NKmktQymp0t4C5H6GvE_g30yAs6khBarmk8mc6xYSaeqSCPIFlN6cxS-XKQHfjV_Lww_7-_O4tEvYk_1jEUlT7N2z9erTF65aGQG48DKZD9lBBEV2CEMfOOFXOog_zHRVpBDBc-qHs96nxuejZJlwra2nTgFM7ZZ1_Udwfn3aHU_sNkDG0H4ZsPVU-1TM">
+<div class="min-w-0">
+<span class="text-xs sm:text-sm font-bold text-slate-900 truncate block">Puncak Rembangan</span>
+<span class="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5 truncate">
+<span class="material-symbols-outlined text-[13px] text-sky-600">location_on</span> Arjasa, Jember
+</span>
+<span class="inline-flex items-center gap-1 text-[10px] text-emerald-600 font-medium mt-0.5">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">star</span> 4.6 • Agrowisata Buah Naga
+</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 hover:text-rose-600 hover:bg-rose-50 active:scale-90 transition-all flex items-center justify-center shrink-0" onclick="removeFavorite('fav-item-rembangan', 'Puncak Rembangan')" title="Hapus dari Favorit">
+<span class="material-symbols-outlined text-[17px]">delete</span>
+</button>
+</div>
+<!-- Empty State -->
+<div class="hidden bg-white rounded-2xl p-5 text-center border border-dashed border-slate-200 flex flex-col items-center" id="fav-empty-state">
+<span class="material-symbols-outlined text-slate-300 text-[28px] mb-1">favorite_border</span>
+<p class="text-xs font-semibold text-slate-700">Belum ada destinasi favorit tersimpan</p>
+<p class="text-[11px] text-slate-400 mt-0.5">Jelajahi wisata Jember dan tekan ikon hati untuk menyimpan.</p>
+</div>
+</div>
+</div>
+<!-- Pengaturan & Menu Akun -->
+<div class="flex flex-col gap-2 pt-1">
+<span class="text-xs font-bold text-slate-700 uppercase tracking-wider px-1">Pengaturan &amp; Layanan</span>
+<div class="bg-white rounded-3xl shadow-sm border border-slate-200/60 overflow-hidden divide-y divide-slate-100">
+<!-- Keamanan Akun & Sandi -->
+<button class="w-full flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" onclick="togglePasswordForm()">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</div>
+<div class="min-w-0">
+<span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Keamanan Akun &amp; Sandi</span>
+<span class="text-[11px] text-slate-500">Kelola kata sandi akun</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<span class="text-[11px] text-sky-700 font-semibold group-hover:underline">Ubah</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px] group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</button>
+<!-- Expandable Password Form Container -->
+<div class="bg-slate-50 p-3.5 border-t border-slate-100 flex flex-col gap-2.5 hidden" id="password-form-box">
+<form class="flex flex-col gap-2.5" onsubmit="event.preventDefault(); savePasswordChanges();"><div><label class="block text-[11px] font-semibold text-slate-600 mb-1">Masukkan Password Lama</label><div class="relative flex items-center"><span class="material-symbols-outlined text-[17px] text-slate-400 absolute left-3">lock</span><input class="w-full pr-9 pl-9 py-1.5 text-xs bg-white border border-slate-200 rounded-xl focus:border-sky-600 text-slate-900" id="pwd-old" placeholder="Masukkan kata sandi lama" type="password"><button class="absolute right-2.5 text-slate-400 hover:text-slate-700" onclick="togglePasswordVisibility('pwd-old', 'icon-pwd-old')" type="button"><span class="material-symbols-outlined text-[16px]" id="icon-pwd-old">visibility</span></button></div></div>
+<div>
+<label class="block text-[11px] font-semibold text-slate-600 mb-1">Kata Sandi Baru</label>
+<div class="relative flex items-center">
+<input class="w-full pr-9 pl-3 py-1.5 text-xs bg-white border border-slate-200 rounded-xl focus:border-sky-600 text-slate-900" id="pwd-new" placeholder="Minimal 8 karakter unik" type="password">
+<button class="absolute right-2.5 text-slate-400 hover:text-slate-700" onclick="togglePasswordVisibility('pwd-new', 'icon-pwd-1')" type="button">
+<span class="material-symbols-outlined text-[16px]" id="icon-pwd-1">visibility</span>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-[11px] font-semibold text-slate-600 mb-1">Konfirmasi Sandi Baru</label>
+<div class="relative flex items-center">
+<input class="w-full pr-9 pl-3 py-1.5 text-xs bg-white border border-slate-200 rounded-xl focus:border-sky-600 text-slate-900" id="pwd-confirm" placeholder="Ulangi kata sandi" type="password">
+<button class="absolute right-2.5 text-slate-400 hover:text-slate-700" onclick="togglePasswordVisibility('pwd-confirm', 'icon-pwd-2')" type="button">
+<span class="material-symbols-outlined text-[16px]" id="icon-pwd-2">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-1.5 rounded-xl bg-slate-200/80 text-slate-600 text-xs font-semibold hover:bg-slate-300" onclick="togglePasswordForm()" type="button">Tutup</button>
+<button class="flex-1 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-semibold shadow-sm active:scale-95 transition-all" type="submit">Simpan Sandi Baru</button>
+</div>
+</form>
+</div>
+<!-- Pilihan Bahasa -->
+<div class="w-full flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-9 h-9 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">language</span>
+</div>
+<div class="min-w-0">
+<span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Pilihan Bahasa</span>
+<span class="text-xs text-slate-500">Bahasa tampilan antarmuka</span>
+</div>
+</div>
+<div class="inline-flex items-center gap-1 bg-slate-100 p-1 rounded-full border border-slate-200/70 shrink-0">
+<button class="px-2.5 py-1 rounded-full bg-[#0c192c] text-white text-xs font-semibold shadow-sm transition-all" type="button">ID</button>
+<button class="px-2.5 py-1 rounded-full text-slate-500 hover:text-slate-900 text-xs font-medium transition-all" type="button">EN</button>
+</div>
+</div>
+<!-- Syarat & Ketentuan -->
+<a class="flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" href="#terms" onclick="alert('Membuka Syarat &amp; Ketentuan Layanan JemberGo.'); return false;">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+</div>
+<div class="min-w-0">
+<span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Syarat &amp; Ketentuan</span>
+<span class="text-[11px] text-slate-500">Aturan pemesanan tiket &amp; layanan</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-[18px] group-hover:translate-x-0.5 transition-transform shrink-0">chevron_right</span>
+</a>
+<!-- Kebijakan Privasi -->
+<a class="flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" href="#privacy" onclick="alert('Membuka Dokumen Kebijakan Privasi Pengguna JemberGo.'); return false;">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="min-w-0">
+<span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Kebijakan Privasi</span>
+<span class="text-[11px] text-slate-500">Privasi data lokal &amp; keamanan akun</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-[18px] group-hover:translate-x-0.5 transition-transform shrink-0">chevron_right</span>
+</a>
+<!-- Tentang JemberGo -->
+<a class="flex items-center justify-between p-3.5 hover:bg-slate-50/80 transition-colors text-left group" href="#about" onclick="alert('JemberGo v1.2.0 - Aplikasi Panduan &amp; Tiket Wisata Resmi Kabupaten Jember.'); return false;">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</div>
+<div class="min-w-0">
+<span class="text-xs sm:text-sm font-semibold text-slate-900 block leading-snug">Tentang JemberGo</span>
+<span class="text-[11px] text-slate-500">Versi 1.2.0 • Dinas Pariwisata Jember</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-[18px] group-hover:translate-x-0.5 transition-transform shrink-0">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Tombol Keluar dari Akun (Logout Minimalist Soft Red) -->
+<div class="flex flex-col gap-2 items-center pt-2">
+<button class="w-full py-3 px-4 rounded-2xl bg-rose-50 border border-rose-200/60 text-rose-600 hover:bg-rose-100/70 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold" id="logout-btn">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span class="">Keluar dari Akun</span>
+</button>
+<div class="flex flex-col items-center text-center mt-1">
+<span class="text-[11px] text-slate-400 font-medium">JemberGo App v1.2.0 • Dinas Pariwisata Jember</span>
+<span class="text-[10px] text-slate-400 mt-0.5">Mendukung Pariwisata Ramah &amp; Terintegrasi</span>
+</div>
+</div>
+</div></main>
+<!-- Floating Capsule Bottom Navigation Bar (100% konsisten dengan layar Peta) -->
+<nav class="fixed bottom-5 left-1/2 -translate-x-1/2 w-[92%] max-w-sm bg-white/95 backdrop-blur-md rounded-full px-3 py-1.5 shadow-2xl border border-slate-200/80 z-50 flex items-center justify-between" data-purpose="floating-dock">
+<a aria-label="Beranda" class="flex flex-col items-center flex-1 py-1 text-slate-500 hover:text-slate-900 transition-colors" data-path="beranda" href="#">
+<span class="material-symbols-outlined text-[20px]">home</span>
+<span class="text-[10px] mt-0.5 font-medium">Beranda</span>
+</a>
+<a aria-label="Jelajahi" class="flex flex-col items-center flex-1 py-1 text-slate-500 hover:text-slate-900 transition-colors" data-path="jelajahi" href="#">
+<span class="material-symbols-outlined text-[20px]">explore</span>
+<span class="text-[10px] mt-0.5 font-medium">Jelajahi</span>
+</a>
+<a aria-label="Peta" class="flex flex-col items-center flex-1 py-1 text-slate-500 hover:text-slate-900 transition-colors" data-path="peta" href="#">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<span class="text-[10px] mt-0.5 font-medium">Peta</span>
+</a>
+<a aria-label="Tiket" class="flex flex-col items-center flex-1 py-1 text-slate-500 hover:text-slate-900 transition-colors" data-path="tiket" href="#">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+<span class="text-[10px] mt-0.5 font-medium">Tiket</span>
+</a>
+<a aria-current="page" aria-label="Profil" class="flex flex-col items-center flex-1 py-1 text-[#0c192c] transition-colors" data-path="profil" href="#">
+<div class="w-10 h-10 rounded-full bg-[#0c192c] text-white flex items-center justify-center shadow-md -mt-2">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<span class="text-[10px] mt-0.5 font-semibold text-[#0c192c]">Profil</span>
+</a>
+</nav>
+<script>
+  let favoriteCount = 2;
+
+  // Toggle Guest vs Authenticated view
+  function toggleAuthView(isAuth) {
+    const guestCard = document.getElementById('guest-card');
+    const loggedCard = document.getElementById('logged-user-card');
+    const statusLabel = document.getElementById('status-label');
+    const tabLoginBtn = document.getElementById('tab-login-btn');
+    const tabGuestBtn = document.getElementById('tab-guest-btn');
+
+    if (isAuth) {
+      guestCard?.classList.add('hidden');
+      loggedCard?.classList.remove('opacity-50');
+      if (statusLabel) {
+        statusLabel.textContent = 'Terhubung Aktif';
+        statusLabel.className = 'text-emerald-600 font-semibold';
+      }
+      if (tabLoginBtn) tabLoginBtn.className = 'px-3 py-1 rounded-lg bg-white text-sky-700 shadow-sm transition-all';
+      if (tabGuestBtn) tabGuestBtn.className = 'px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-all';
+    } else {
+      guestCard?.classList.remove('hidden');
+      loggedCard?.classList.add('opacity-50');
+      if (statusLabel) {
+        statusLabel.textContent = 'Mode Tamu (Belum Masuk)';
+        statusLabel.className = 'text-slate-500 font-semibold';
+      }
+      if (tabGuestBtn) tabGuestBtn.className = 'px-3 py-1 rounded-lg bg-white text-sky-700 shadow-sm transition-all';
+      if (tabLoginBtn) tabLoginBtn.className = 'px-2.5 py-1 rounded-lg text-slate-500 hover:text-slate-800 transition-all';
+    }
+  }
+
+  // Toggle photo options tray highlight
+  function togglePhotoMenu() {
+    const tray = document.getElementById('photo-options-tray');
+    if (tray) {
+      tray.classList.toggle('ring-2');
+      tray.classList.toggle('ring-sky-500/40');
+      tray.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      handlePhotoAction('pilih');
+    }
+  }
+
+  // Local photo operations
+  function handlePhotoAction(action) {
+    const img = document.getElementById('profile-img');
+    if (action === 'pilih') {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            img.src = event.target.result;
+            alert('Foto profil berhasil dimuat dari galeri lokal perangkat (USR-82910)!');
+          };
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      };
+      input.click();
+    } else if (action === 'kompres') {
+      alert('Foto lokal berhasil dikompresi otomatis untuk efisiensi penyimpanan perangkat.');
+    } else if (action === 'hapus') {
+      if (confirm('Hapus foto profil lokal Anda?')) {
+        img.src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80';
+        alert('Foto profil lokal berhasil dihapus.');
+      }
+    }
+  }
+
+  // Toggle Edit profile drawer
+  function toggleEditProfileDrawer() {
+    const sec = document.getElementById('edit-profile-section');
+    sec.classList.toggle('hidden');
+    if (!sec.classList.contains('hidden')) {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  function saveProfileChanges() {
+    const nameVal = document.getElementById('input-name').value;
+    const emailVal = document.getElementById('input-email').value;
+    const phoneVal = document.getElementById('input-phone').value;
+
+    if (nameVal) document.getElementById('display-name').textContent = nameVal;
+    if (emailVal) document.getElementById('display-email').textContent = emailVal;
+    if (phoneVal) document.getElementById('display-phone').textContent = phoneVal;
+
+    toggleEditProfileDrawer();
+    alert('Informasi pribadi berhasil diperbarui!');
+  }
+
+  // Password drawer and toggle
+  function togglePasswordForm() {
+    const formBox = document.getElementById('password-form-box');
+    formBox.classList.toggle('hidden');
+  }
+
+  function togglePasswordVisibility(fieldId, iconId) {
+    const field = document.getElementById(fieldId);
+    const icon = document.getElementById(iconId);
+    if (field.type === 'password') {
+      field.type = 'text';
+      icon.textContent = 'visibility_off';
+    } else {
+      field.type = 'password';
+      icon.textContent = 'visibility';
+    }
+  }
+
+  function savePasswordChanges() {
+    const pwd1 = document.getElementById('pwd-new').value;
+    const pwd2 = document.getElementById('pwd-confirm').value;
+
+    if (!pwd1 || !pwd2) {
+      alert('Mohon isi kata sandi baru dan konfirmasinya.');
+      return;
+    }
+    if (pwd1 !== pwd2) {
+      alert('Kata sandi baru dan konfirmasi tidak cocok!');
+      return;
+    }
+    alert('Kata sandi akun USR-82910 berhasil diubah!');
+    document.getElementById('pwd-new').value = '';
+    document.getElementById('pwd-confirm').value = '';
+    togglePasswordForm();
+  }
+
+  // Remove Favorite item
+  function removeFavorite(itemId, title) {
+    if (confirm(`Hapus "${title}" dari destinasi favorit Anda?`)) {
+      const el = document.getElementById(itemId);
+      if (el) {
+        el.remove();
+        favoriteCount--;
+        const badge = document.getElementById('fav-count-badge');
+        if (badge) badge.textContent = `${favoriteCount} Tersimpan`;
+
+        if (favoriteCount <= 0) {
+          const emptyState = document.getElementById('fav-empty-state');
+          if (emptyState) emptyState.classList.remove('hidden');
+        }
+      }
+    }
+  }
+
+  function showLanguageAlert() {
+    alert('Pilihan Bahasa: Saat ini aktif Bahasa Indonesia. Pilihan bahasa lain (English) segera hadir.');
+  }
+
+  // Logout handler
+  document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        if (confirm('Apakah Anda yakin ingin keluar dari akun JemberGo?')) {
+          logoutBtn.classList.add('opacity-50');
+          logoutBtn.innerText = 'Memproses Keluar...';
+          setTimeout(() => {
+            alert('Berhasil keluar. Beralih ke Mode Tamu.');
+            logoutBtn.classList.remove('opacity-50');
+            logoutBtn.innerText = 'Keluar dari Akun';
+            toggleAuthView(false);
+          }, 400);
+        }
+      });
+    }
+  });
+</script>
+
+
+
+
+</body></html>

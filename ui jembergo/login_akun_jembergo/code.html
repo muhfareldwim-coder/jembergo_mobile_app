@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Masuk - JemberGo</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style data-purpose="base-resets">
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    /* Hide default scrollbars for smooth mobile frame feeling */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+<style data-purpose="ui-decorations">
+    .ios-shadow {
+      box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.25);
+    }
+    .card-shadow {
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    }
+    .back-btn-shadow {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-0 sm:p-4 text-slate-800">
+<!-- BEGIN: MobileContainer -->
+<!-- Outer Mobile Viewport Wrapper mimicking high-end iOS frame -->
+<div class="w-full max-w-[420px] bg-white min-h-screen sm:min-h-[852px] sm:max-h-[900px] sm:rounded-[48px] shadow-2xl flex flex-col relative overflow-hidden border-0 sm:border-[8px] sm:border-slate-900" data-purpose="mobile-viewport">
+<!-- BEGIN: iOSStatusBar -->
+<!-- Authentic iOS status bar with Dynamic Island styling -->
+<header class="w-full pt-3 pb-2 px-7 flex justify-between items-center z-30 shrink-0 select-none bg-white" data-purpose="ios-status-bar">
+<!-- Time indicator -->
+<span class="text-[15px] font-semibold tracking-tight text-slate-900 ml-1">9:41</span>
+<!-- Dynamic Island Pill cutout -->
+<div class="w-28 h-[26px] bg-black rounded-full mx-auto hidden sm:block"></div>
+<!-- Device Status Icons -->
+<div class="flex items-center space-x-2 text-slate-900 mr-1">
+<!-- Cellular Signal Icon -->
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+<path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 2c3.87 0 7 3.13 7 7 0 1.5-.47 2.89-1.28 4.04L12 19.38l-5.72-3.34C5.47 14.89 5 13.5 5 12c0-3.87 3.13-7 7-7z"></path>
+</svg>
+<!-- Wi-Fi Icon -->
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+<path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4zm0 3.5c3.78 0 7.21 1.48 9.77 3.91L12 18.23 2.23 11.41C4.79 8.98 8.22 7.5 12 7.5z"></path>
+</svg>
+<!-- Battery Icon -->
+<div class="w-6 h-[11px] border border-slate-900 rounded-sm p-0.5 flex items-center">
+<div class="h-full w-full bg-slate-900 rounded-2xs"></div>
+</div>
+</div>
+</header>
+<!-- END: iOSStatusBar -->
+<!-- BEGIN: NavigationBar -->
+<!-- Top Navigation with circular back button consistent with https://lh3.googleusercontent.com/aida-public/AB6AXuA9Y9j8nAiftWs1qjyYQpj7OmVoGdGC0xOHyBWCMAj5zKxfENSjI9XOLFFy-FKPz5w2zhxAGxCjG_w6jBO8NbE7rHz766eCOTqRLYGGMPOoES44XRGJm7gKEFAh8UEYmGwzbSc1HH7OhBhgILDGW6lAaF8VqYiJJ7KI-vmY1ePhC5FDEcqsSh1_mGAEbYWa25efGgVbIGUZnn8TqLN4upUBlFXiIqXIinmD95Ay__XdmDM_Q0Fz1BYv -->
+<nav class="px-6 py-3 flex items-center justify-between z-20 shrink-0" data-purpose="top-navigation">
+<button aria-label="Kembali" class="w-11 h-11 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-100 active:scale-95 transition back-btn-shadow" type="button">
+<!-- Chevron Left Icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M15.75 19.5L8.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<h1 class="text-[17px] font-semibold text-slate-900 tracking-tight">
+        Masuk ke Akun
+      </h1>
+<!-- Empty placeholder for flex alignment balance -->
+<div aria-hidden="true" class="w-11 h-11"></div>
+</nav>
+<!-- END: NavigationBar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 px-6 pt-2 pb-8 overflow-y-auto flex flex-col justify-between" data-purpose="login-form-container">
+<div>
+<!-- BEGIN: WelcomeHeader -->
+<section class="mt-4 mb-8" data-purpose="welcome-section">
+<!-- App Badge -->
+<div class="flex items-center mb-4 justify-center"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7Unc_ifSsuoJnHavOGrFadm0fOScLocEW3MGq3YWC5ByYhD8dWM59tqhQ4lNGXfLQBSZFFb1-7lCzSQ42omXg2_2qkVV8FLHngcNwUQReVF--4hEwMlmo4W-6Q3mdFap4PKBJbhpMJGvns1RkSKh8qTpBVbG4w_8grDaXlWqVLtYH58g6gT3DtcW-L_TxFAu8q09_I5fDpB5vx4Jkyz4hFSnGeudz_ByfT_epnQ4Xdgc2Ht2vQO8d" alt="JemberGo Logo" class="h-12 w-auto object-contain"></div>
+<h2 class="text-2xl font-bold tracking-tight text-slate-900 leading-snug">
+            Selamat Datang Kembali! 👋
+          </h2>
+<p class="text-sm text-slate-500 mt-2 leading-relaxed">
+            Masuk untuk melanjutkan petualangan wisatamu di pesona alam dan budaya Jember.
+          </p>
+</section>
+<!-- END: WelcomeHeader -->
+<!-- BEGIN: LoginForm -->
+<form class="space-y-4" data-purpose="auth-form" id="loginForm" onsubmit="event.preventDefault();"><!-- Feedback Error Alert Banner -->
+<div class="hidden p-3 rounded-xl bg-error-container/40 border border-error/20 flex items-center gap-2.5 text-xs text-error transition" id="authErrorBanner" role="alert">
+  <svg class="w-4 h-4 shrink-0 text-error" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <span class="font-medium" id="authErrorMessage">Email atau kata sandi tidak valid. Periksa kembali akun Anda.</span>
+</div>
+
+<!-- Token / Session Security Indicator Badge -->
+
+<!-- Email Field -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-slate-700 tracking-wide" for="email">
+              Alamat Email
+            </label>
+<div class="relative flex items-center">
+<span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+<!-- Mail Icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</span>
+<input class="w-full bg-slate-50 border border-slate-200/80 rounded-2xl py-3.5 pl-11 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600/20 focus:border-brand-600 transition" id="email" name="email" placeholder="contoh: rama@jembergo.id" required="" type="email">
+</div><p class="text-[11px] text-error hidden pl-1 mt-1" id="passwordError">Kata sandi minimal 6 karakter</p>
+</div>
+<!-- Password Field -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold text-slate-700 tracking-wide" for="password">
+              Kata Sandi
+            </label>
+<div class="relative flex items-center">
+<span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+<!-- Lock Icon -->
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</span>
+<input class="w-full bg-slate-50 border border-slate-200/80 rounded-2xl py-3.5 pl-11 pr-12 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-600/20 focus:border-brand-600 transition" id="password" name="password" placeholder="Masukkan kata sandi" required="" type="password">
+<!-- Password Toggle Visibility Button -->
+<button aria-label="Tampilkan atau sembunyikan kata sandi" class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600 focus:outline-none" id="togglePassword" type="button">
+<!-- Eye Icon (Default) -->
+<svg class="w-5 h-5" fill="none" id="eyeIcon" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<!-- Eye Slash Icon (Hidden by default) -->
+<svg class="w-5 h-5 hidden" fill="none" id="eyeSlashIcon" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Forgot Password Link -->
+<div class="flex justify-end pt-0.5">
+<a class="text-xs font-semibold text-brand-600 hover:text-brand-700 transition" href="#forgot-password">
+              Lupa Kata Sandi?
+            </a>
+</div>
+<!-- Primary Submit Button -->
+<div class="pt-3">
+<button class="w-full text-white font-semibold py-3.5 px-6 rounded-full text-[15px] transition duration-200 flex items-center justify-center active:scale-[0.98] bg-slate-900" type="submit"><span class="flex items-center justify-center gap-2">
+  <span class="">Masuk</span>
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+    <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+</span></button>
+</div>
+</form>
+<!-- END: LoginForm -->
+<!-- BEGIN: SocialDivider -->
+<div class="relative my-7" data-purpose="auth-divider">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-200/80"></div>
+</div>
+<div class="relative flex justify-center text-xs">
+<span class="bg-white px-3 text-slate-400 font-medium">atau masuk dengan</span>
+</div>
+</div>
+<!-- END: SocialDivider -->
+<!-- BEGIN: SocialLogin -->
+<section data-purpose="social-auth-action">
+<button class="w-full bg-white border border-slate-200/90 hover:bg-slate-50 text-slate-700 font-medium py-3 px-5 rounded-full text-sm flex items-center justify-center space-x-3 transition card-shadow active:scale-[0.98]" type="button">
+<!-- Google Multicolor Vector Logo -->
+<svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+<path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.665-5.17 3.665-9.12z" fill="#4285F4"></path>
+<path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.13C3.28 21.43 7.33 24 12 24z" fill="#34A853"></path>
+<path d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.13z" fill="#FBBC05"></path>
+<path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.28 2.57 1.25 6.58l4.03 3.13c.95-2.83 3.6-4.96 6.72-4.96z" fill="#EA4335"></path>
+</svg>
+<span class="tracking-tight text-slate-700">Lanjutkan dengan Google</span>
+</button>
+<div class="mt-2.5 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
+  <svg class="w-3 h-3 text-secondary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <span class="">Sinkronisasi OAuth 2.0 &amp; Penyimpanan Token Sesi Aktif</span>
+</div></section>
+<!-- END: SocialLogin -->
+</div>
+<!-- BEGIN: RegistrationFooter -->
+<footer class="pt-6 text-center" data-purpose="registration-footer">
+<p class="text-xs text-slate-500">
+          Belum punya akun?
+          <a class="font-bold text-brand-600 hover:text-brand-700 transition ml-1" href="#register">
+            Daftar Sekarang
+          </a>
+</p>
+</footer>
+<!-- END: RegistrationFooter -->
+</main>
+<!-- END: MainContent -->
+<!-- iOS Home Indicator bar -->
+<div class="w-full flex justify-center pb-2 pt-1 bg-white select-none">
+<div class="w-32 h-1 bg-slate-300 rounded-full"></div>
+</div>
+</div>
+<!-- END: MobileContainer -->
+<!-- BEGIN: InteractiveHandlers -->
+<script data-purpose="event-handlers">
+    // Toggle password visibility handler as defined in auth_service & login_page
+    const toggleBtn = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+
+    toggleBtn.addEventListener('click', function () {
+      const isPassword = passwordInput.getAttribute('type') === 'password';
+      passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+      
+      // Swap icons
+      eyeIcon.classList.toggle('hidden');
+      eyeSlashIcon.classList.toggle('hidden');
+    });
+  </script>
+<!-- END: InteractiveHandlers -->
+
+
+
+
+
+
+
+
+</body></html>
