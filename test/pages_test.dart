@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:jembergo_mobile_app/models/app_data.dart';
 import 'package:jembergo_mobile_app/screens/destination_detail_screen.dart';
+import 'package:jembergo_mobile_app/screens/payment_screen.dart';
 import 'package:jembergo_mobile_app/screens/profile_screen.dart';
 import 'package:jembergo_mobile_app/screens/tickets_screen.dart';
 
@@ -51,6 +52,16 @@ void main() {
     ];
   });
 
+  testWidgets('payment screen only offers QRIS', (WidgetTester tester) async {
+    _usePhoneViewport(tester);
+    await tester.pumpWidget(
+      MaterialApp(home: PaymentScreen(order: AppData.tickets.value[1])),
+    );
+
+    expect(find.text('QRIS'), findsWidgets);
+    expect(find.text('Virtual Account'), findsNothing);
+  });
+
   testWidgets('destination booking creates an order visible on tickets page', (
     WidgetTester tester,
   ) async {
@@ -65,17 +76,32 @@ void main() {
 
     await tester.tap(find.text('Pesan Tiket Sekarang'));
     await tester.pumpAndSettle();
-    expect(find.text('Pesan Tiket Wisata'), findsOneWidget);
+    expect(find.text('Pemesanan Tiket'), findsWidgets);
 
-    await tester.tap(find.text('Lanjutkan ke Tiket'));
+    await tester.scrollUntilVisible(
+      find.text('Anggota Rombongan'),
+      400,
+      scrollable: _verticalScrollable().first,
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Anggota Rombongan'), findsOneWidget);
+    expect(find.text('Siti Rahmawati'), findsOneWidget);
+    expect(find.text('Dimas Pratama'), findsOneWidget);
+
+    await tester.ensureVisible(find.text('Lanjut Bayar'));
+    await tester.tap(find.text('Lanjut Bayar'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Tiket Saya'), findsOneWidget);
+    expect(find.text('Pembayaran Tiket'), findsWidgets);
     expect(
       AppData.tickets.value.first.destination.name,
       'Pantai Tanjung Papuma',
     );
+    expect(AppData.tickets.value.first.adults, 2);
+    expect(AppData.tickets.value.first.children, 1);
+    expect(AppData.tickets.value.first.total, 65000);
     expect(AppData.tickets.value.first.status, TicketStatus.pending);
+    expect(find.textContaining('Tiket Anak'), findsOneWidget);
   });
 
   testWidgets('active ticket opens a scannable QR ticket detail', (
@@ -86,11 +112,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Tiket Saya'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.text('Buka E-Ticket & QR'),
-      240,
-      scrollable: _verticalScrollable(),
-    );
+    expect(find.text('Buka E-Ticket & QR'), findsOneWidget);
     await tester.tap(find.text('Buka E-Ticket & QR'));
     await tester.pumpAndSettle();
 
@@ -106,11 +128,11 @@ void main() {
     await tester.pumpWidget(const MaterialApp(home: ProfileScreen()));
     await tester.pumpAndSettle();
 
-    await tester.scrollUntilVisible(
-      find.byType(TextFormField).first,
-      240,
-      scrollable: _verticalScrollable(),
-    );
+    expect(find.text('Profil Saya'), findsOneWidget);
+    expect(find.text('Edit Informasi Pribadi'), findsOneWidget);
+    await tester.tap(find.text('Edit Informasi Pribadi'));
+    await tester.pumpAndSettle();
+
     await tester.enterText(find.byType(TextFormField).at(0), 'Dewi Wisata');
     await tester.enterText(
       find.byType(TextFormField).at(1),
@@ -120,8 +142,7 @@ void main() {
       find.byType(TextFormField).at(2),
       '+62 812-9988-7766',
     );
-    await tester.ensureVisible(find.text('Simpan Perubahan Profil'));
-    await tester.tap(find.text('Simpan Perubahan Profil'));
+    await tester.tap(find.text('Simpan'));
     await tester.pump();
 
     expect(AppData.profile.value.name, 'Dewi Wisata');

@@ -10,6 +10,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/app_data.dart';
+import '../widgets/app_bottom_navigation.dart';
 import 'destination_detail_screen.dart';
 import 'explore_screen.dart';
 import 'home_screen.dart';
@@ -681,12 +682,7 @@ class _MapScreenState extends State<MapScreen>
                 ),
               ],
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 20,
-              child: _buildBottomNavigation(),
-            ),
+            _buildBottomNavigation(),
           ],
         ),
       ),
@@ -1689,109 +1685,25 @@ class _MapScreenState extends State<MapScreen>
   }
 
   Widget _buildBottomNavigation() {
-    const items = [
-      (label: 'Beranda', icon: Icons.home_rounded),
-      (label: 'Jelajahi', icon: Icons.explore_rounded),
-      (label: 'Peta', icon: Icons.location_on_outlined),
-      (label: 'Tiket', icon: Icons.confirmation_number_outlined),
-      (label: 'Profil', icon: Icons.person_outline_rounded),
-    ];
-
-    return Center(
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 360),
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(40),
-          border: Border.all(color: const Color(0xFFE5E7EB), width: 1.2),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x18000000),
-              blurRadius: 20,
-              offset: Offset(0, 6),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            for (var index = 0; index < items.length; index++)
-              Expanded(
-                child: _buildNavigationItem(
-                  label: items[index].label,
-                  icon: items[index].icon,
-                  isSelected: items[index].label == 'Peta',
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavigationItem({
-    required String label,
-    required IconData icon,
-    required bool isSelected,
-  }) {
-    final color = isSelected ? _navy : const Color(0xFF9CA3AF);
-
-    return InkWell(
-      onTap: isSelected
-          ? null
-          : () {
-              if (label == 'Beranda') {
-                _navigatePage(HomeScreen(userName: AppData.profile.value.name));
-              } else if (label == 'Jelajahi') {
-                _navigatePage(
-                  ExploreScreen(userName: AppData.profile.value.name),
-                );
-              } else if (label == 'Tiket') {
-                _navigatePage(const TicketsScreen());
-              } else if (label == 'Profil') {
-                _navigatePage(const ProfileScreen());
-              } else {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(content: Text('$label segera hadir.')),
-                  );
-              }
-            },
-      borderRadius: BorderRadius.circular(28),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: isSelected ? _navy : Colors.transparent,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                icon,
-                size: isSelected ? 18 : 20,
-                color: isSelected ? Colors.white : color,
-              ),
-            ),
-            const SizedBox(height: 3),
-            Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 9,
-                height: 1,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return AppBottomNavigationDock(
+      selectedIndex: 2,
+      onSelected: (index) {
+        final userName = AppData.profile.value.name;
+        switch (index) {
+          case 0:
+            _navigatePage(HomeScreen(userName: userName));
+            return;
+          case 1:
+            _navigatePage(ExploreScreen(userName: userName));
+            return;
+          case 3:
+            _navigatePage(const TicketsScreen());
+            return;
+          case 4:
+            _navigatePage(const ProfileScreen());
+            return;
+        }
+      },
     );
   }
 }

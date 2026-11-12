@@ -21,10 +21,11 @@ class AppBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
+      heightFactor: 1.0,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 380),
+        constraints: const BoxConstraints(maxWidth: 360),
         margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.97),
           borderRadius: BorderRadius.circular(40),
@@ -61,14 +62,14 @@ class AppBottomNavigation extends StatelessWidget {
         onTap: selected ? null : () => onSelected(index),
         borderRadius: BorderRadius.circular(24),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 2),
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               AnimatedContainer(
                 duration: const Duration(milliseconds: 180),
-                width: selected ? 34 : 30,
-                height: selected ? 34 : 30,
+                width: 32,
+                height: 32,
                 decoration: BoxDecoration(
                   color: selected
                       ? const Color(0xFF0C192C)
@@ -94,6 +95,30 @@ class AppBottomNavigation extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AppBottomNavigationDock extends StatelessWidget {
+  const AppBottomNavigationDock({
+    required this.selectedIndex,
+    required this.onSelected,
+    super.key,
+  });
+
+  final int selectedIndex;
+  final ValueChanged<int> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: 0,
+      right: 0,
+      bottom: 20,
+      child: AppBottomNavigation(
+        selectedIndex: selectedIndex,
+        onSelected: onSelected,
       ),
     );
   }

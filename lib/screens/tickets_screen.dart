@@ -7,6 +7,7 @@ import '../widgets/app_bottom_navigation.dart';
 import 'explore_screen.dart';
 import 'home_screen.dart';
 import 'map_screen.dart';
+import 'payment_screen.dart';
 import 'profile_screen.dart';
 
 class TicketsScreen extends StatefulWidget {
@@ -52,6 +53,7 @@ Widget _bookingNotice() {
 class _TicketsScreenState extends State<TicketsScreen> {
   static const _navy = Color(0xFF0C192C);
   static const _blue = Color(0xFF006194);
+  static const _muted = Color(0xFF64748B);
   String _selectedFilter = 'Semua';
 
   @override
@@ -60,62 +62,64 @@ class _TicketsScreenState extends State<TicketsScreen> {
       backgroundColor: const Color(0xFFF8FAFC),
       body: SafeArea(
         bottom: false,
-        child: Column(
+        child: Stack(
           children: [
-            _buildHeader(),
-            Expanded(
-              child: ValueListenableBuilder<List<TicketOrder>>(
-                valueListenable: AppData.tickets,
-                builder: (context, tickets, _) {
-                  final visible = tickets.where(_matchesFilter).toList();
-                  return ListView(
-                    padding: const EdgeInsets.fromLTRB(18, 12, 18, 116),
-                    children: [
-                      _buildIntro(tickets),
-                      const SizedBox(height: 17),
-                      _buildFilters(tickets),
-                      const SizedBox(height: 16),
-                      if (widget.focusBookingCode != null) ...[
-                        _bookingNotice(),
-                        const SizedBox(height: 13),
-                      ],
-                      if (visible.isEmpty)
-                        _buildEmptyState()
-                      else
-                        for (final ticket in visible) ...[
-                          _buildTicketCard(ticket),
-                          const SizedBox(height: 14),
-                        ],
-                      if (tickets.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Text(
-                            'Menampilkan ${visible.length} dari ${tickets.length} pesanan',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Color(0xFF94A3B8),
-                              fontSize: 11,
+            Column(
+              children: [
+                _buildHeader(),
+                Expanded(
+                  child: ValueListenableBuilder<List<TicketOrder>>(
+                    valueListenable: AppData.tickets,
+                    builder: (context, tickets, _) {
+                      final visible = tickets.where(_matchesFilter).toList();
+                      return ListView(
+                        padding: const EdgeInsets.fromLTRB(18, 12, 18, 116),
+                        children: [
+                          _buildIntro(tickets),
+                          const SizedBox(height: 17),
+                          _buildFilters(tickets),
+                          const SizedBox(height: 16),
+                          if (widget.focusBookingCode != null) ...[
+                            _bookingNotice(),
+                            const SizedBox(height: 13),
+                          ],
+                          if (visible.isEmpty)
+                            _buildEmptyState()
+                          else
+                            for (final ticket in visible) ...[
+                              _buildTicketCard(ticket),
+                              const SizedBox(height: 14),
+                            ],
+                          if (tickets.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Text(
+                                'Menampilkan ${visible.length} dari ${tickets.length} pesanan',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Color(0xFF94A3B8),
+                                  fontSize: 11,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                    ],
-                  );
-                },
-              ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
+            _buildBottomNavigation(),
           ],
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: AppBottomNavigation(
-            selectedIndex: 3,
-            onSelected: _navigateToTab,
-          ),
-        ),
-      ),
+    );
+  }
+
+  Widget _buildBottomNavigation() {
+    return AppBottomNavigationDock(
+      selectedIndex: 3,
+      onSelected: _navigateToTab,
     );
   }
 
@@ -396,7 +400,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
                     ] else if (isPending)
                       _pendingActions(ticket)
                     else
-                      _completedActions(),
+                      _completedActions(ticket),
                   ],
                 ),
               ),
@@ -642,7 +646,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
               SizedBox(width: 7),
               Expanded(
                 child: Text(
-                  'Metode: QRIS / Virtual Account',
+                  'Metode: QRIS',
                   style: TextStyle(color: Color(0xFF475569), fontSize: 10),
                 ),
               ),
@@ -651,7 +655,13 @@ class _TicketsScreenState extends State<TicketsScreen> {
         ),
         const SizedBox(height: 9),
         FilledButton.icon(
-          onPressed: () => _confirmPayment(ticket),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => PaymentScreen(order: ticket),
+              ),
+            );
+          },
           icon: const Icon(Icons.payments_outlined, size: 18),
           label: const Text('Lanjutkan Pembayaran'),
           style: FilledButton.styleFrom(
@@ -665,16 +675,357 @@ class _TicketsScreenState extends State<TicketsScreen> {
     );
   }
 
-  Widget _completedActions() {
-    return OutlinedButton.icon(
-      onPressed: () => _showMessage('Tiket ini sudah digunakan.'),
-      icon: const Icon(Icons.check_circle_outline_rounded, size: 18),
-      label: const Text('Tiket telah digunakan'),
-      style: OutlinedButton.styleFrom(
-        foregroundColor: const Color(0xFF64748B),
-        minimumSize: const Size.fromHeight(44),
-        shape: const StadiumBorder(),
-        side: const BorderSide(color: Color(0xFFE2E8F0)),
+  Widget _completedActions(TicketOrder ticket) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+          decoration: BoxDecoration(
+            color: const Color(0xFFDCFCE7).withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: const Color(0xFF86EFAC).withValues(alpha: 0.6),
+            ),
+          ),
+          child: const Row(
+            children: [
+              Icon(Icons.verified_rounded, color: Color(0xFF059669), size: 15),
+              SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  'Ulasan aktif: Tiket telah berhasil digunakan',
+                  style: TextStyle(
+                    color: Color(0xFF047857),
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: FilledButton.icon(
+                onPressed: () => _showReviewDialog(ticket),
+                icon: const Icon(
+                  Icons.star_rounded,
+                  color: Color(0xFFFBBF24),
+                  size: 18,
+                ),
+                label: const Text('Beri Ulasan'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: _navy,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size.fromHeight(44),
+                  shape: const StadiumBorder(),
+                  textStyle: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: OutlinedButton.icon(
+                onPressed: () => _showMessage(
+                  'E-voucher PDF berhasil diunduh ke perangkat.',
+                ),
+                icon: const Icon(Icons.download_rounded, size: 18),
+                label: const Text('Unduh PDF'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: const Color(0xFF1E293B),
+                  backgroundColor: const Color(0xFFF1F5F9),
+                  side: const BorderSide(color: Color(0xFFE2E8F0)),
+                  minimumSize: const Size.fromHeight(44),
+                  shape: const StadiumBorder(),
+                  textStyle: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  void _showReviewDialog(TicketOrder ticket) {
+    int rating = 5;
+    final reviewController = TextEditingController();
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setModalState) {
+          final labels = [
+            '1.0 - Sangat Kurang',
+            '2.0 - Kurang Puas',
+            '3.0 - Cukup Baik',
+            '4.0 - Sangat Baik!',
+            '5.0 - Sangat Memuaskan!',
+          ];
+
+          return Container(
+            padding: EdgeInsets.fromLTRB(
+              20,
+              16,
+              20,
+              24 + MediaQuery.viewInsetsOf(ctx).bottom,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFCBD5E1),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: const [
+                              Icon(
+                                Icons.verified_rounded,
+                                color: Color(0xFF059669),
+                                size: 14,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                'TIKET TERVERIFIKASI',
+                                style: TextStyle(
+                                  color: Color(0xFF059669),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Beri Ulasan Destinasi',
+                            style: TextStyle(
+                              color: _navy,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () => Navigator.pop(ctx),
+                        style: IconButton.styleFrom(
+                          backgroundColor: const Color(0xFFF1F5F9),
+                        ),
+                        icon: const Icon(
+                          Icons.close_rounded,
+                          size: 18,
+                          color: _navy,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF8FAFC),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: const Color(0xFFE2E8F0)),
+                    ),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            ticket.destination.image,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                ticket.destination.name,
+                                style: const TextStyle(
+                                  color: _navy,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                'Kunjungan: ${_formatDate(ticket.visitDate)}',
+                                style: const TextStyle(
+                                  color: _muted,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Bagaimana pengalaman wisatamu?',
+                          style: TextStyle(color: _muted, fontSize: 12),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(5, (index) {
+                            final star = index + 1;
+                            return IconButton(
+                              onPressed: () =>
+                                  setModalState(() => rating = star),
+                              icon: Icon(
+                                star <= rating
+                                    ? Icons.star_rounded
+                                    : Icons.star_outline_rounded,
+                                color: const Color(0xFFF59E0B),
+                                size: 36,
+                              ),
+                            );
+                          }),
+                        ),
+                        Text(
+                          labels[rating - 1],
+                          style: const TextStyle(
+                            color: Color(0xFFD97706),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Tulis Ulasan & Pengalaman',
+                    style: TextStyle(
+                      color: _navy,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  TextField(
+                    controller: reviewController,
+                    maxLines: 3,
+                    decoration: InputDecoration(
+                      hintText: 'Bagikan tips jalur trekking, kebersihan, atau suasana pemandangan...',
+                      hintStyle: const TextStyle(
+                        color: Color(0xFFCBD5E1),
+                        fontSize: 12,
+                      ),
+                      filled: true,
+                      fillColor: const Color(0xFFF8FAFC),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+                      ),
+                    ),
+                    style: const TextStyle(fontSize: 13, color: _navy),
+                  ),
+                  const SizedBox(height: 14),
+                  Row(
+                    children: [
+                      OutlinedButton.icon(
+                        onPressed: () => _showMessage(
+                          'Fitur unggah foto lokal siap digunakan.',
+                        ),
+                        icon: const Icon(
+                          Icons.add_photo_alternate_outlined,
+                          size: 18,
+                        ),
+                        label: const Text('+ Foto Liburan'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: _navy,
+                          side: const BorderSide(color: Color(0xFFCBD5E1)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 10,
+                          ),
+                          textStyle: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Expanded(
+                        child: Text(
+                          'Membantu wisatawan lain melihat kondisi terkini.',
+                          style: TextStyle(color: _muted, fontSize: 10),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 18),
+                  FilledButton.icon(
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                      _showMessage(
+                        'Ulasan bintang $rating berhasil dikirim! Terima kasih atas partisipasimu.',
+                      );
+                    },
+                    icon: const Icon(Icons.send_rounded, size: 18),
+                    label: const Text('Kirim Ulasan'),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: _navy,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size.fromHeight(48),
+                      shape: const StadiumBorder(),
+                      textStyle: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -709,36 +1060,6 @@ class _TicketsScreenState extends State<TicketsScreen> {
         ],
       ),
     );
-  }
-
-  Future<void> _confirmPayment(TicketOrder ticket) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Konfirmasi pembayaran'),
-        content: Text(
-          'Selesaikan pembayaran ${ticket.destination.name} sebesar '
-          'Rp ${_formatPrice(ticket.total)}?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Nanti'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Bayar'),
-          ),
-        ],
-      ),
-    );
-    if (confirmed == true) {
-      AppData.updateTicketStatus(ticket.bookingCode, TicketStatus.active);
-      if (mounted) {
-        _showMessage('Pembayaran berhasil. E-ticket siap digunakan.');
-        _openQr(ticket.copyWith(status: TicketStatus.active));
-      }
-    }
   }
 
   void _openQr(TicketOrder ticket) {

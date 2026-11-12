@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/app_data.dart';
+import '../widgets/app_bottom_navigation.dart';
 import 'destination_detail_screen.dart';
 import 'home_screen.dart';
 import 'map_screen.dart';
@@ -406,12 +407,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 ),
               ],
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 20,
-              child: _buildBottomNavigation(),
-            ),
+            _buildBottomNavigation(),
           ],
         ),
       ),
@@ -1153,149 +1149,64 @@ class _ExploreScreenState extends State<ExploreScreen> {
   }
 
   Widget _buildBottomNavigation() {
-    const items = [
-      (label: 'Beranda', icon: Icons.home_rounded, isExplore: false),
-      (label: 'Jelajahi', icon: Icons.explore_rounded, isExplore: true),
-      (label: 'Peta', icon: Icons.location_on_outlined, isExplore: false),
-      (
-        label: 'Tiket',
-        icon: Icons.confirmation_number_outlined,
-        isExplore: false,
-      ),
-      (label: 'Profil', icon: Icons.person_outline_rounded, isExplore: false),
-    ];
-
-    return Center(
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 360),
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(40),
-          border: Border.all(color: const Color(0xFFE5E7EB), width: 1.2),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x18000000),
-              blurRadius: 20,
-              offset: Offset(0, 6),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            for (final item in items)
-              _buildNavigationItem(
-                label: item.label,
-                icon: item.icon,
-                isSelected: item.isExplore,
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavigationItem({
-    required String label,
-    required IconData icon,
-    required bool isSelected,
-  }) {
-    final color = isSelected ? _navy : const Color(0xFF9CA3AF);
-
-    return InkWell(
-      onTap: isSelected
-          ? null
-          : () {
-              if (label == 'Beranda') {
-                if (Navigator.of(context).canPop()) {
-                  Navigator.of(context).pop();
-                } else {
-                  Navigator.of(context).pushReplacement(
-                    PageRouteBuilder<void>(
-                      pageBuilder: (context, _, _) =>
-                          HomeScreen(userName: widget.userName),
-                      transitionDuration: const Duration(milliseconds: 250),
-                      transitionsBuilder: (context, animation, _, child) {
-                        return FadeTransition(
-                          opacity: CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOutCubic,
-                          ),
-                          child: child,
-                        );
-                      },
+    return AppBottomNavigationDock(
+      selectedIndex: 1,
+      onSelected: (index) {
+        switch (index) {
+          case 0:
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).pop();
+            } else {
+              Navigator.of(context).pushReplacement(
+                PageRouteBuilder<void>(
+                  pageBuilder: (context, _, _) =>
+                      HomeScreen(userName: widget.userName),
+                  transitionDuration: const Duration(milliseconds: 250),
+                  transitionsBuilder: (context, animation, _, child) {
+                    return FadeTransition(
+                      opacity: CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeInOutCubic,
+                      ),
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            }
+            return;
+          case 2:
+            Navigator.of(context).push(
+              PageRouteBuilder<void>(
+                pageBuilder: (context, _, _) =>
+                    MapScreen(userName: AppData.profile.value.name),
+                transitionDuration: const Duration(milliseconds: 250),
+                reverseTransitionDuration: const Duration(milliseconds: 200),
+                transitionsBuilder: (context, animation, _, child) {
+                  return FadeTransition(
+                    opacity: CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeInOutCubic,
+                      reverseCurve: Curves.easeInOutCubic,
                     ),
+                    child: child,
                   );
-                }
-              } else if (label == 'Peta') {
-                Navigator.of(context).push(
-                  PageRouteBuilder<void>(
-                    pageBuilder: (context, _, _) =>
-                        MapScreen(userName: AppData.profile.value.name),
-                    transitionDuration: const Duration(milliseconds: 250),
-                    reverseTransitionDuration: const Duration(
-                      milliseconds: 200,
-                    ),
-                    transitionsBuilder: (context, animation, _, child) {
-                      return FadeTransition(
-                        opacity: CurvedAnimation(
-                          parent: animation,
-                          curve: Curves.easeInOutCubic,
-                          reverseCurve: Curves.easeInOutCubic,
-                        ),
-                        child: child,
-                      );
-                    },
-                  ),
-                );
-              } else if (label == 'Tiket') {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const TicketsScreen(),
-                  ),
-                );
-              } else if (label == 'Profil') {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const ProfileScreen(),
-                  ),
-                );
-              }
-            },
-      borderRadius: BorderRadius.circular(28),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: isSelected ? _navy : Colors.transparent,
-                shape: BoxShape.circle,
+                },
               ),
-              child: Icon(
-                icon,
-                size: isSelected ? 18 : 20,
-                color: isSelected ? Colors.white : color,
-              ),
-            ),
-            const SizedBox(height: 3),
-            Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 9.5,
-                height: 1,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
+            );
+            return;
+          case 3:
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const TicketsScreen()),
+            );
+            return;
+          case 4:
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const ProfileScreen()),
+            );
+            return;
+        }
+      },
     );
   }
 }

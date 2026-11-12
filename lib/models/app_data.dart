@@ -171,6 +171,8 @@ class TicketOrder {
     required this.visitDate,
     required this.people,
     required this.status,
+    this.adultCount,
+    this.childCount,
   });
 
   final String bookingCode;
@@ -178,8 +180,13 @@ class TicketOrder {
   final DateTime visitDate;
   final int people;
   final TicketStatus status;
+  final int? adultCount;
+  final int? childCount;
 
-  int get total => destination.price * people;
+  int get adults => adultCount ?? people;
+  int get children => childCount ?? 0;
+  int get total =>
+      destination.price * adults + (destination.price * 3 ~/ 5) * children;
 
   TicketOrder copyWith({TicketStatus? status}) {
     return TicketOrder(
@@ -188,6 +195,8 @@ class TicketOrder {
       visitDate: visitDate,
       people: people,
       status: status ?? this.status,
+      adultCount: adultCount,
+      childCount: childCount,
     );
   }
 }
@@ -231,6 +240,8 @@ class AppData {
     required DestinationInfo destination,
     required DateTime visitDate,
     required int people,
+    int? adultCount,
+    int? childCount,
   }) {
     final code =
         'JGO-${DateTime.now().millisecondsSinceEpoch.toString().substring(5)}';
@@ -240,6 +251,8 @@ class AppData {
       visitDate: visitDate,
       people: people,
       status: TicketStatus.pending,
+      adultCount: adultCount,
+      childCount: childCount,
     );
     tickets.value = [order, ...tickets.value];
     return order;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models/app_data.dart';
+import 'booking_screen.dart';
 import 'map_screen.dart';
-import 'tickets_screen.dart';
 
 class DestinationDetailScreen extends StatelessWidget {
   const DestinationDetailScreen({required this.destination, super.key});
@@ -14,171 +14,11 @@ class DestinationDetailScreen extends StatelessWidget {
   static const _muted = Color(0xFF64748B);
 
   Future<void> _openBooking(BuildContext context) async {
-    final today = DateTime.now();
-    var visitDate = DateTime(today.year, today.month, today.day + 1);
-    var people = 1;
-    final order = await showModalBottomSheet<TicketOrder>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setSheetState) => SafeArea(
-          child: Container(
-            padding: EdgeInsets.fromLTRB(
-              20,
-              14,
-              20,
-              20 + MediaQuery.viewInsetsOf(context).bottom,
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFCBD5E1),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 18),
-                const Text(
-                  'Pesan Tiket Wisata',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    color: _navy,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  destination.name,
-                  style: const TextStyle(color: _muted, fontSize: 13),
-                ),
-                const SizedBox(height: 18),
-                OutlinedButton.icon(
-                  onPressed: () async {
-                    final selected = await showDatePicker(
-                      context: context,
-                      initialDate: visitDate,
-                      firstDate: DateTime(today.year, today.month, today.day),
-                      lastDate: today.add(const Duration(days: 365)),
-                    );
-                    if (selected != null) {
-                      setSheetState(() => visitDate = selected);
-                    }
-                  },
-                  icon: const Icon(Icons.calendar_month_rounded),
-                  label: Text(
-                    '${visitDate.day.toString().padLeft(2, '0')}/'
-                    '${visitDate.month.toString().padLeft(2, '0')}/'
-                    '${visitDate.year}',
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: _navy,
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 14,
-                    ),
-                    side: const BorderSide(color: Color(0xFFE2E8F0)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    const Expanded(
-                      child: Text(
-                        'Jumlah wisatawan',
-                        style: TextStyle(
-                          color: _navy,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: people > 1
-                          ? () => setSheetState(() => people--)
-                          : null,
-                      icon: const Icon(Icons.remove_circle_outline_rounded),
-                    ),
-                    Text(
-                      '$people',
-                      style: const TextStyle(
-                        color: _navy,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: people < 20
-                          ? () => setSheetState(() => people++)
-                          : null,
-                      icon: const Icon(Icons.add_circle_outline_rounded),
-                    ),
-                  ],
-                ),
-                const Divider(height: 20),
-                Row(
-                  children: [
-                    const Expanded(
-                      child: Text(
-                        'Total pembayaran',
-                        style: TextStyle(color: _muted, fontSize: 13),
-                      ),
-                    ),
-                    Text(
-                      'Rp ${(destination.price * people).toString()}',
-                      style: const TextStyle(
-                        color: _navy,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                FilledButton(
-                  onPressed: () {
-                    final created = AppData.createOrder(
-                      destination: destination,
-                      visitDate: visitDate,
-                      people: people,
-                    );
-                    Navigator.of(context).pop(created);
-                  },
-                  style: FilledButton.styleFrom(
-                    backgroundColor: _navy,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: const StadiumBorder(),
-                  ),
-                  child: const Text('Lanjutkan ke Tiket'),
-                ),
-              ],
-            ),
-          ),
-        ),
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => BookingScreen(destination: destination),
       ),
     );
-
-    if (order != null && context.mounted) {
-      Navigator.of(context).push(
-        MaterialPageRoute<void>(
-          builder: (_) => TicketsScreen(focusBookingCode: order.bookingCode),
-        ),
-      );
-    }
   }
 
   void _openMap(BuildContext context) {

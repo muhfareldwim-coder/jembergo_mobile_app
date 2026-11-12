@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/app_data.dart';
+import '../widgets/app_bottom_navigation.dart';
 import 'destination_detail_screen.dart';
 import 'explore_screen.dart';
 import 'map_screen.dart';
@@ -193,12 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 20,
-              child: _buildBottomNavigation(),
-            ),
+            _buildBottomNavigation(),
           ],
         ),
       ),
@@ -901,101 +897,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildBottomNavigation() {
-    const items = [
-      (label: 'Beranda', icon: Icons.home_rounded),
-      (label: 'Jelajahi', icon: Icons.explore_rounded),
-      (label: 'Peta', icon: Icons.location_on_outlined),
-      (label: 'Tiket', icon: Icons.confirmation_number_outlined),
-      (label: 'Profil', icon: Icons.person_outline_rounded),
-    ];
-
-    return Center(
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 360),
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(40),
-          border: Border.all(color: const Color(0xFFE5E7EB), width: 1.2),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x18000000),
-              blurRadius: 20,
-              offset: Offset(0, 6),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            for (var index = 0; index < items.length; index++)
-              _buildNavigationItem(
-                label: items[index].label,
-                icon: items[index].icon,
-                isSelected: index == 0,
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavigationItem({
-    required String label,
-    required IconData icon,
-    required bool isSelected,
-  }) {
-    final color = isSelected ? _navy : const Color(0xFF9CA3AF);
-
-    return InkWell(
-      onTap: isSelected
-          ? null
-          : () {
-              if (label == 'Jelajahi') {
-                _openExplore();
-              } else if (label == 'Peta') {
-                _openMap();
-              } else if (label == 'Tiket') {
-                _openTickets();
-              } else if (label == 'Profil') {
-                _openProfile();
-              } else {
-                _showComingSoon(label);
-              }
-            },
-      borderRadius: BorderRadius.circular(28),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: isSelected ? _navy : Colors.transparent,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                icon,
-                size: isSelected ? 18 : 20,
-                color: isSelected ? Colors.white : color,
-              ),
-            ),
-            const SizedBox(height: 3),
-            Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: 9,
-                height: 1,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return AppBottomNavigationDock(
+      selectedIndex: 0,
+      onSelected: (index) {
+        switch (index) {
+          case 1:
+            _openExplore();
+          case 2:
+            _openMap();
+          case 3:
+            _openTickets();
+          case 4:
+            _openProfile();
+        }
+      },
     );
   }
 }
