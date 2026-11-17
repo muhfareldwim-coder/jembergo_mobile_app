@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../models/app_data.dart';
+import 'package:jembergo_mobile_app/models/app_data.dart';
 
 class ProfileDetailScreen extends StatefulWidget {
   const ProfileDetailScreen({super.key});

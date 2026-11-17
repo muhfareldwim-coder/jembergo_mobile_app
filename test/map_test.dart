@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:jembergo_mobile_app/screens/map_screen.dart';
+import 'package:jembergo_mobile_app/features/map/presentation/map_screen.dart';
 
 void main() {
   testWidgets('MapScreen renders all core map elements and OSM attribution', (

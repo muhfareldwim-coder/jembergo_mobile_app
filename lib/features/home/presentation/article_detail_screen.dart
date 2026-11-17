@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../models/app_data.dart';
-import '../models/article_info.dart';
-import 'destination_detail_screen.dart';
+import 'package:jembergo_mobile_app/models/app_data.dart';
+import 'package:jembergo_mobile_app/models/article_info.dart';
+import 'package:jembergo_mobile_app/features/destination/presentation/destination_detail_screen.dart';
 
 class ArticleDetailScreen extends StatelessWidget {
   const ArticleDetailScreen({required this.article, super.key});

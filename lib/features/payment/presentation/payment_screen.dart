@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
-import '../models/app_data.dart';
-import 'tickets_screen.dart';
+import 'package:jembergo_mobile_app/models/app_data.dart';
+import 'package:jembergo_mobile_app/features/ticket/presentation/tickets_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({required this.order, super.key});

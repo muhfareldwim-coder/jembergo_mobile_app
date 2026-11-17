@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:jembergo_mobile_app/main.dart';
-import 'package:jembergo_mobile_app/screens/home_screen.dart';
+import 'package:jembergo_mobile_app/app.dart';
+import 'package:jembergo_mobile_app/features/home/presentation/home_screen.dart';
 
 void main() {
   testWidgets('welcome screen start button opens the home screen', (

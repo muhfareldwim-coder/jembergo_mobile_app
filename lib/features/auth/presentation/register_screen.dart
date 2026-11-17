@@ -407,10 +407,7 @@ class _RegisterField extends StatelessWidget {
           validator: validator,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(
-              color: Color(0xFF94A3B8),
-              fontSize: 14,
-            ),
+            hintStyle: const TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
             prefixIcon: Icon(icon, color: const Color(0xFF64748B), size: 20),
             suffixIcon: suffixIcon,
             filled: true,

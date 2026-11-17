@@ -1,16 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import '../models/app_data.dart';
-import '../models/article_info.dart';
-import '../widgets/app_bottom_navigation.dart';
-import 'article_detail_screen.dart';
-import 'destination_detail_screen.dart';
-import 'explore_screen.dart';
-import 'map_screen.dart';
-import 'profile_screen.dart';
-import 'tickets_screen.dart';
+import 'package:jembergo_mobile_app/models/app_data.dart';
+import 'package:jembergo_mobile_app/models/article_info.dart';
+import 'package:jembergo_mobile_app/features/destination/presentation/destination_detail_screen.dart';
+import 'package:jembergo_mobile_app/features/destination/presentation/explore_screen.dart';
+import 'package:jembergo_mobile_app/features/home/presentation/article_detail_screen.dart';
+import 'package:jembergo_mobile_app/features/map/presentation/map_screen.dart';
+import 'package:jembergo_mobile_app/features/profile/presentation/profile_screen.dart';
+import 'package:jembergo_mobile_app/features/ticket/presentation/tickets_screen.dart';
+import 'package:jembergo_mobile_app/shared/widgets/app_bottom_navigation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.userName = 'Budi Santoso'});

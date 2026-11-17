@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
-import '../models/app_data.dart';
-import '../widgets/app_bottom_navigation.dart';
-import 'explore_screen.dart';
-import 'home_screen.dart';
-import 'map_screen.dart';
-import 'payment_screen.dart';
-import 'profile_screen.dart';
+import 'package:jembergo_mobile_app/models/app_data.dart';
+import 'package:jembergo_mobile_app/features/destination/presentation/explore_screen.dart';
+import 'package:jembergo_mobile_app/features/home/presentation/home_screen.dart';
+import 'package:jembergo_mobile_app/features/map/presentation/map_screen.dart';
+import 'package:jembergo_mobile_app/features/payment/presentation/payment_screen.dart';
+import 'package:jembergo_mobile_app/features/profile/presentation/profile_screen.dart';
+import 'package:jembergo_mobile_app/shared/widgets/app_bottom_navigation.dart';
 
 class TicketsScreen extends StatefulWidget {
   const TicketsScreen({this.focusBookingCode, super.key});

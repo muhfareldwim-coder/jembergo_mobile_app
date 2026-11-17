@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jembergo_mobile_app/widgets/app_bottom_navigation.dart';
+import 'package:jembergo_mobile_app/shared/widgets/app_bottom_navigation.dart';
 
 void main() {
   testWidgets('all navigation items keep the same size when selected', (

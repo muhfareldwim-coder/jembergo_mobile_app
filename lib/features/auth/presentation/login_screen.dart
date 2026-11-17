@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'home_screen.dart';
-import 'register_screen.dart';
+import 'package:jembergo_mobile_app/features/auth/presentation/register_screen.dart';
+import 'package:jembergo_mobile_app/features/home/presentation/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -337,20 +336,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                 PageRouteBuilder<void>(
                                   pageBuilder: (context, _, _) =>
                                       const RegisterScreen(),
-                                  transitionDuration:
-                                      const Duration(milliseconds: 250),
-                                  reverseTransitionDuration:
-                                      const Duration(milliseconds: 200),
+                                  transitionDuration: const Duration(
+                                    milliseconds: 250,
+                                  ),
+                                  reverseTransitionDuration: const Duration(
+                                    milliseconds: 200,
+                                  ),
                                   transitionsBuilder:
                                       (context, animation, _, child) {
-                                    return FadeTransition(
-                                      opacity: CurvedAnimation(
-                                        parent: animation,
-                                        curve: Curves.easeInOutCubic,
-                                      ),
-                                      child: child,
-                                    );
-                                  },
+                                        return FadeTransition(
+                                          opacity: CurvedAnimation(
+                                            parent: animation,
+                                            curve: Curves.easeInOutCubic,
+                                          ),
+                                          child: child,
+                                        );
+                                      },
                                 ),
                               );
                             },
@@ -385,10 +386,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: const TextStyle(
-        color: Color(0xFF94A3B8),
-        fontSize: 14,
-      ),
+      hintStyle: const TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
       prefixIcon: Icon(icon, color: const Color(0xFF64748B), size: 20),
       filled: true,
       fillColor: Colors.white,

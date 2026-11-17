@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:jembergo_mobile_app/screens/explore_screen.dart';
+import 'package:jembergo_mobile_app/features/destination/presentation/explore_screen.dart';
 
 void main() {
   testWidgets('ExploreScreen renders all core elements', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: ExploreScreen(),
-      ),
-    );
+    await tester.pumpWidget(const MaterialApp(home: ExploreScreen()));
 
     // Header greetings
     expect(find.text('Halo, '), findsOneWidget);
@@ -59,11 +55,7 @@ void main() {
   testWidgets('filtering by category updates destination list', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: ExploreScreen(),
-      ),
-    );
+    await tester.pumpWidget(const MaterialApp(home: ExploreScreen()));
 
     // Tap 'Wisata Alam' chip
     await tester.tap(find.text('Wisata Alam'));
@@ -77,11 +69,7 @@ void main() {
   testWidgets('searching filters destinations and empty state works', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: ExploreScreen(),
-      ),
-    );
+    await tester.pumpWidget(const MaterialApp(home: ExploreScreen()));
 
     // Enter search query that matches Papuma
     await tester.enterText(find.byType(TextField), 'papuma');

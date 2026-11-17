@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../models/app_data.dart';
-import 'payment_screen.dart';
+import 'package:jembergo_mobile_app/models/app_data.dart';
+import 'package:jembergo_mobile_app/features/payment/presentation/payment_screen.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({required this.destination, super.key});

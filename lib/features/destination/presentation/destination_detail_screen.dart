@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../models/app_data.dart';
-import 'booking_screen.dart';
-import 'map_screen.dart';
+import 'package:jembergo_mobile_app/models/app_data.dart';
+import 'package:jembergo_mobile_app/features/booking/presentation/booking_screen.dart';
+import 'package:jembergo_mobile_app/features/map/presentation/map_screen.dart';
 
 class DestinationDetailScreen extends StatelessWidget {
   const DestinationDetailScreen({required this.destination, super.key});

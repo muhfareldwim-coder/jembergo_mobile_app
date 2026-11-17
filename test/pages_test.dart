@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:jembergo_mobile_app/models/app_data.dart';
-import 'package:jembergo_mobile_app/screens/destination_detail_screen.dart';
-import 'package:jembergo_mobile_app/screens/payment_screen.dart';
-import 'package:jembergo_mobile_app/screens/profile_screen.dart';
-import 'package:jembergo_mobile_app/screens/tickets_screen.dart';
+import 'package:jembergo_mobile_app/features/destination/presentation/destination_detail_screen.dart';
+import 'package:jembergo_mobile_app/features/payment/presentation/payment_screen.dart';
+import 'package:jembergo_mobile_app/features/profile/presentation/profile_screen.dart';
+import 'package:jembergo_mobile_app/features/ticket/presentation/tickets_screen.dart';
 
 void _usePhoneViewport(WidgetTester tester) {
   tester.view.physicalSize = const Size(390, 844);

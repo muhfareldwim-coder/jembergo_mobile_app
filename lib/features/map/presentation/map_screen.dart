@@ -8,15 +8,14 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../models/app_data.dart';
-import '../widgets/app_bottom_navigation.dart';
-import 'destination_detail_screen.dart';
-import 'explore_screen.dart';
-import 'home_screen.dart';
-import 'profile_screen.dart';
-import 'tickets_screen.dart';
-import '../services/route_estimate_service.dart';
+import 'package:jembergo_mobile_app/models/app_data.dart';
+import 'package:jembergo_mobile_app/features/destination/presentation/destination_detail_screen.dart';
+import 'package:jembergo_mobile_app/features/destination/presentation/explore_screen.dart';
+import 'package:jembergo_mobile_app/features/home/presentation/home_screen.dart';
+import 'package:jembergo_mobile_app/features/profile/presentation/profile_screen.dart';
+import 'package:jembergo_mobile_app/features/ticket/presentation/tickets_screen.dart';
+import 'package:jembergo_mobile_app/services/route_estimate_service.dart';
+import 'package:jembergo_mobile_app/shared/widgets/app_bottom_navigation.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({
