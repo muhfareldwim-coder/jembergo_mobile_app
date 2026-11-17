@@ -74,7 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const Spacer(),
                   Image.asset(
-                    'assets/onboarding/jembergo_logo.png',
+                    'assets/logo jembergonobackgroud.png',
                     width: 112,
                     height: 48,
                     fit: BoxFit.contain,
@@ -324,8 +324,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      Wrap(
+                        alignment: WrapAlignment.center,
                         children: [
                           const Text(
                             'Sudah punya akun?',

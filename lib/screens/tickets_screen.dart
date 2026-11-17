@@ -133,7 +133,7 @@ class _TicketsScreenState extends State<TicketsScreen> {
       child: Row(
         children: [
           Image.asset(
-            'assets/onboarding/jembergo_logo.png',
+            'assets/logo jembergonobackgroud.png',
             width: 42,
             height: 36,
             fit: BoxFit.contain,

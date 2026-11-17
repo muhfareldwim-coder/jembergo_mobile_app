@@ -4,11 +4,17 @@ import '../models/app_data.dart';
 import '../widgets/app_bottom_navigation.dart';
 import 'explore_screen.dart';
 import 'home_screen.dart';
+import 'login_screen.dart';
 import 'map_screen.dart';
+import 'profile_detail_screen.dart';
+import 'profile_service_screen.dart';
+import 'register_screen.dart';
 import 'tickets_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({this.isGuest = true, super.key});
+
+  final bool isGuest;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -19,13 +25,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   static const _blue = Color(0xFF006194);
   static const _muted = Color(0xFF64748B);
 
-  // --- Profile edit form ---
-  final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _nameController;
-  late final TextEditingController _emailController;
-  late final TextEditingController _phoneController;
-  bool _editExpanded = false;
-
   // --- Password form ---
   final _oldPwdController = TextEditingController();
   final _newPwdController = TextEditingController();
@@ -34,22 +33,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _obscureNew = true;
 
   final Set<String> _favoriteIds = {'papuma', 'rembangan'};
-  String _language = 'ID';
-
-  @override
-  void initState() {
-    super.initState();
-    final profile = AppData.profile.value;
-    _nameController = TextEditingController(text: profile.name);
-    _emailController = TextEditingController(text: profile.email);
-    _phoneController = TextEditingController(text: profile.phone);
-  }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
     _oldPwdController.dispose();
     _newPwdController.dispose();
     super.dispose();
@@ -71,21 +57,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Expanded(
                   child: ListView(
                     padding: const EdgeInsets.fromLTRB(18, 14, 18, 120),
-                    children: [
-                      _buildProfileCard(),
-                      const SizedBox(height: 14),
-                      _buildFavorites(),
-                      const SizedBox(height: 14),
-                      _buildSettings(),
-                      const SizedBox(height: 20),
-                      _buildLogoutButton(),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Jember Tourism Center • Layanan Pengaduan 112',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Color(0xFF94A3B8), fontSize: 10),
-                      ),
-                    ],
+                    children: widget.isGuest
+                        ? [
+                            _buildGuestProfileCard(),
+                            const SizedBox(height: 14),
+                            _buildGuestFavorites(),
+                            const SizedBox(height: 14),
+                            _buildGuestSettings(),
+                            const SizedBox(height: 20),
+                            const Text(
+                              'JemberGo App v1.2.0 • Dinas Pariwisata Jember\n'
+                              'Mendukung Pariwisata Ramah & Terintegrasi',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF94A3B8),
+                                fontSize: 10,
+                                height: 1.5,
+                              ),
+                            ),
+                          ]
+                        : [
+                            _buildProfileCard(),
+                            const SizedBox(height: 14),
+                            _buildFavorites(),
+                            const SizedBox(height: 14),
+                            _buildSettings(),
+                            const SizedBox(height: 20),
+                            _buildLogoutButton(),
+                            const SizedBox(height: 16),
+                            const Text(
+                              'Jember Tourism Center • Layanan Pengaduan 112',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF94A3B8),
+                                fontSize: 10,
+                              ),
+                            ),
+                          ],
                   ),
                 ),
               ],
@@ -115,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -129,7 +137,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: 2),
                 Text(
-                  'Kelola informasi akun & preferensi',
+                  widget.isGuest
+                      ? 'Jelajahi Jember sebagai pengunjung'
+                      : 'Kelola informasi akun & preferensi',
                   style: TextStyle(color: _muted, fontSize: 10),
                 ),
               ],
@@ -150,7 +160,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(width: 6),
           IconButton(
             tooltip: 'Pengaturan',
-            onPressed: () => _showMessage('Halaman pengaturan akan segera tersedia.'),
+            onPressed: () =>
+                _showMessage('Halaman pengaturan akan segera tersedia.'),
             style: IconButton.styleFrom(
               backgroundColor: const Color(0xFFF1F5F9),
             ),
@@ -158,6 +169,405 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildGuestProfileCard() {
+    return _card(
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    width: 72,
+                    height: 72,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF0F9FF),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: const Color(0xFFE0F2FE)),
+                    ),
+                    child: const Icon(
+                      Icons.person_rounded,
+                      color: Color(0xFF0369A1),
+                      size: 38,
+                    ),
+                  ),
+                  Positioned(
+                    right: -4,
+                    bottom: -4,
+                    child: Container(
+                      width: 25,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE2E8F0),
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: const Icon(
+                        Icons.lock_rounded,
+                        color: _muted,
+                        size: 13,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 14),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Pengunjung Tamu',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: _navy,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 6),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF1F5F9),
+                            borderRadius: BorderRadius.all(Radius.circular(7)),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
+                            child: Text(
+                              'Tamu',
+                              style: TextStyle(
+                                color: _muted,
+                                fontSize: 9,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 7),
+                    Text(
+                      'Masuk atau buat akun untuk menikmati semua fitur JemberGo secara optimal.',
+                      style: TextStyle(
+                        color: _muted,
+                        fontSize: 11,
+                        height: 1.45,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          Row(
+            children: [
+              Expanded(
+                child: FilledButton.icon(
+                  onPressed: _openLogin,
+                  icon: const Icon(Icons.login_rounded, size: 16),
+                  label: const Text('Masuk Akun'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: _navy,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 9),
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: _openRegister,
+                  icon: const Icon(Icons.person_add_alt_1_rounded, size: 16),
+                  label: const Text('Daftar Baru'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: const Color(0xFF334155),
+                    backgroundColor: const Color(0xFFF8FAFC),
+                    side: const BorderSide(color: Color(0xFFE2E8F0)),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF8FAFC),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: const Color(0xFFE2E8F0)),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.stars_rounded, color: _blue, size: 17),
+                    SizedBox(width: 6),
+                    Text(
+                      'Keuntungan Memiliki Akun',
+                      style: TextStyle(
+                        color: _navy,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Simpan tiket elektronik dan destinasi favorit, serta kelola preferensi wisata antar-perangkat.',
+                  style: TextStyle(color: _muted, fontSize: 10, height: 1.45),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGuestFavorites() {
+    return _card(
+      child: Column(
+        children: [
+          _sectionHeader(
+            icon: Icons.favorite_rounded,
+            iconColor: const Color(0xFFE11D48),
+            iconBg: const Color(0xFFFFF1F2),
+            title: 'Destinasi Favorit',
+            subtitle: '0 tersimpan',
+          ),
+          const SizedBox(height: 12),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: const Color(0xFFE2E8F0)),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFFF1F2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.favorite_border_rounded,
+                    color: Color(0xFFE11D48),
+                    size: 23,
+                  ),
+                ),
+                const SizedBox(height: 9),
+                const Text(
+                  'Belum Ada Favorit Tersimpan',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: _navy,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'Login untuk menyimpan dan menyinkronkan destinasi favorit Anda di Jember.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: _muted, fontSize: 10, height: 1.4),
+                ),
+                const SizedBox(height: 10),
+                TextButton.icon(
+                  onPressed: _openLogin,
+                  icon: const Icon(Icons.login_rounded, size: 15),
+                  label: const Text('Masuk'),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: _navy,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 17,
+                      vertical: 8,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGuestSettings() {
+    return _card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _sectionHeader(
+            icon: Icons.tune_rounded,
+            iconColor: _navy,
+            iconBg: const Color(0xFFF1F5F9),
+            title: 'Pengaturan & Layanan',
+            subtitle: 'Preferensi dan informasi bantuan',
+          ),
+          const SizedBox(height: 8),
+          _settingsTile(
+            icon: Icons.language_rounded,
+            title: 'Pilihan Bahasa',
+            onTap: _showLanguagePicker,
+            trailing: ValueListenableBuilder<String>(
+              valueListenable: AppData.language,
+              builder: (context, language, _) => Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF1F5F9),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  language,
+                  style: const TextStyle(
+                    color: _navy,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          _settingsTile(
+            icon: Icons.help_outline_rounded,
+            title: 'Bantuan & Pusat Informasi',
+            onTap: () => _openServicePage(ProfileServiceType.help),
+          ),
+          _settingsTile(
+            icon: Icons.gavel_rounded,
+            title: 'Syarat & Ketentuan',
+            onTap: () => _openServicePage(ProfileServiceType.terms),
+          ),
+          _settingsTile(
+            icon: Icons.verified_user_outlined,
+            title: 'Kebijakan Privasi',
+            onTap: () => _openServicePage(ProfileServiceType.privacy),
+          ),
+          _settingsTile(
+            icon: Icons.info_outline_rounded,
+            title: 'Tentang JemberGo',
+            onTap: () => _openServicePage(ProfileServiceType.about),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _openLogin() {
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (_) => const LoginScreen()));
+  }
+
+  void _openRegister() {
+    Navigator.of(context)
+        .push(MaterialPageRoute<void>(builder: (_) => const RegisterScreen()));
+  }
+
+  Future<void> _showLanguagePicker() async {
+    final selectedLanguage = await showModalBottomSheet<String>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 4, 16, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(12, 4, 12, 8),
+                child: Text(
+                  'Pilih Bahasa / Choose language',
+                  style: TextStyle(
+                    color: _navy,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              RadioGroup<String>(
+                groupValue: AppData.language.value,
+                onChanged: (value) {
+                  if (value != null) Navigator.of(context).pop(value);
+                },
+                child: Column(
+                  children: [
+                    for (final option in const [
+                      (code: 'ID', label: 'Bahasa Indonesia'),
+                      (code: 'EN', label: 'English'),
+                    ])
+                      RadioListTile<String>(
+                        value: option.code,
+                        title: Text(option.label),
+                        activeColor: _navy,
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (selectedLanguage == null || !mounted) return;
+    AppData.language.value = selectedLanguage;
+    _showMessage(
+      selectedLanguage == 'ID'
+          ? 'Bahasa tampilan dipilih: Bahasa Indonesia.'
+          : 'Selected display language: English.',
+    );
+  }
+
+  void _openServicePage(ProfileServiceType type) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => ProfileServiceScreen(type: type)),
     );
   }
 
@@ -176,10 +586,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 100,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFFE2E8F0),
-                    width: 4,
-                  ),
+                  border: Border.all(color: const Color(0xFFE2E8F0), width: 4),
                 ),
                 child: ClipOval(
                   child: Image.asset(
@@ -267,16 +674,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(
             width: double.infinity,
             child: OutlinedButton.icon(
-              onPressed: () => setState(() => _editExpanded = !_editExpanded),
-              icon: Icon(
-                _editExpanded
-                    ? Icons.keyboard_arrow_up_rounded
-                    : Icons.edit_outlined,
-                size: 17,
-              ),
-              label: Text(
-                _editExpanded ? 'Tutup Form' : 'Edit Informasi Pribadi',
-              ),
+              onPressed: _openProfileDetail,
+              icon: const Icon(Icons.edit_outlined, size: 17),
+              label: const Text('Edit Informasi Pribadi'),
               style: OutlinedButton.styleFrom(
                 foregroundColor: _navy,
                 side: const BorderSide(color: Color(0xFFE2E8F0)),
@@ -290,113 +690,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-          ),
-          // Expandable edit form
-          AnimatedSize(
-            duration: const Duration(milliseconds: 280),
-            curve: Curves.easeInOut,
-            child: _editExpanded
-                ? Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 14),
-                        const Divider(color: Color(0xFFE2E8F0)),
-                        const SizedBox(height: 10),
-                        _formField(
-                          label: 'Nama Lengkap',
-                          controller: _nameController,
-                          icon: Icons.person_outline_rounded,
-                          validator: (value) =>
-                              value == null || value.trim().length < 2
-                                  ? 'Masukkan nama lengkap'
-                                  : null,
-                          textCapitalization: TextCapitalization.words,
-                        ),
-                        const SizedBox(height: 12),
-                        _formField(
-                          label: 'Alamat Email',
-                          controller: _emailController,
-                          icon: Icons.mail_outline_rounded,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            final email = value?.trim() ?? '';
-                            return RegExp(r'^[^@]+@[^@]+\.[^@]+$')
-                                    .hasMatch(email)
-                                ? null
-                                : 'Masukkan alamat email yang valid';
-                          },
-                        ),
-                        const SizedBox(height: 12),
-                        _formField(
-                          label: 'Nomor WhatsApp / Telepon',
-                          controller: _phoneController,
-                          icon: Icons.phone_iphone_rounded,
-                          keyboardType: TextInputType.phone,
-                          validator: (value) {
-                            final digits =
-                                (value ?? '').replaceAll(RegExp(r'\D'), '');
-                            return digits.length >= 9
-                                ? null
-                                : 'Masukkan nomor telepon yang valid';
-                          },
-                        ),
-                        const SizedBox(height: 14),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  final profile = AppData.profile.value;
-                                  _nameController.text = profile.name;
-                                  _emailController.text = profile.email;
-                                  _phoneController.text = profile.phone;
-                                  setState(() => _editExpanded = false);
-                                },
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor: _muted,
-                                  side: const BorderSide(
-                                    color: Color(0xFFE2E8F0),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                ),
-                                child: const Text('Batal'),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: FilledButton.icon(
-                                onPressed: _saveProfile,
-                                icon: const Icon(Icons.save_outlined, size: 16),
-                                label: const Text('Simpan'),
-                                style: FilledButton.styleFrom(
-                                  backgroundColor: _navy,
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                  textStyle: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                : const SizedBox.shrink(),
           ),
         ],
       ),
@@ -667,10 +960,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ButtonSegment(value: 'ID', label: Text('ID')),
                   ButtonSegment(value: 'EN', label: Text('EN')),
                 ],
-                selected: {_language},
+                selected: {AppData.language.value},
                 showSelectedIcon: false,
                 onSelectionChanged: (value) =>
-                    setState(() => _language = value.first),
+                    setState(() => AppData.language.value = value.first),
                 style: ButtonStyle(
                   visualDensity: VisualDensity.compact,
                   textStyle: const WidgetStatePropertyAll(
@@ -684,12 +977,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _settingsTile(
             icon: Icons.description_outlined,
             title: 'Syarat & Ketentuan',
-            onTap: () => _showMessage('Syarat & Ketentuan akan segera tersedia.'),
+            onTap: () =>
+                _showMessage('Syarat & Ketentuan akan segera tersedia.'),
           ),
           _settingsTile(
             icon: Icons.policy_outlined,
             title: 'Kebijakan Privasi',
-            onTap: () => _showMessage('Kebijakan Privasi akan segera tersedia.'),
+            onTap: () =>
+                _showMessage('Kebijakan Privasi akan segera tersedia.'),
           ),
           _settingsTile(
             icon: Icons.info_outline_rounded,
@@ -707,25 +1002,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required VoidCallback onTap,
     Widget? trailing,
   }) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      dense: true,
-      leading: Icon(icon, color: const Color(0xFF94A3B8), size: 19),
-      title: Text(
-        title,
-        style: const TextStyle(
-          color: _navy,
-          fontSize: 11,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      trailing: trailing ??
-          const Icon(
-            Icons.chevron_right_rounded,
-            color: Color(0xFFCBD5E1),
-            size: 20,
+    return Material(
+      color: Colors.transparent,
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        dense: true,
+        leading: Icon(icon, color: const Color(0xFF94A3B8), size: 19),
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: _navy,
+            fontSize: 11,
+            fontWeight: FontWeight.w500,
           ),
-      onTap: onTap,
+        ),
+        trailing:
+            trailing ??
+            const Icon(
+              Icons.chevron_right_rounded,
+              color: Color(0xFFCBD5E1),
+              size: 20,
+            ),
+        onTap: onTap,
+      ),
     );
   }
 
@@ -759,7 +1058,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             suffixIcon: IconButton(
               onPressed: onToggle,
               icon: Icon(
-                obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                obscure
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
                 size: 18,
                 color: const Color(0xFF94A3B8),
               ),
@@ -805,10 +1106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          textStyle: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
-          ),
+          textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
         ),
       ),
     );
@@ -858,61 +1156,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _formField({
-    required String label,
-    required TextEditingController controller,
-    required IconData icon,
-    required String? Function(String?) validator,
-    TextInputType? keyboardType,
-    TextCapitalization textCapitalization = TextCapitalization.none,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: _navy,
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 6),
-        TextFormField(
-          controller: controller,
-          validator: validator,
-          keyboardType: keyboardType,
-          textCapitalization: textCapitalization,
-          decoration: InputDecoration(
-            prefixIcon: Icon(icon, size: 18, color: const Color(0xFF94A3B8)),
-            filled: true,
-            fillColor: const Color(0xFFF8FAFC),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 13,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: _blue, width: 1.5),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: Color(0xFFDC2626)),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _card({required Widget child}) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -934,15 +1177,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // ── Logic ─────────────────────────────────────────────────────────────────
 
-  void _saveProfile() {
-    if (!_formKey.currentState!.validate()) return;
-    AppData.profile.value = UserProfile(
-      name: _nameController.text.trim(),
-      email: _emailController.text.trim(),
-      phone: _phoneController.text.trim(),
+  Future<void> _openProfileDetail() async {
+    final saved = await Navigator.of(context).push<bool>(
+      MaterialPageRoute<bool>(builder: (_) => const ProfileDetailScreen()),
     );
-    setState(() => _editExpanded = false);
-    _showMessage('Profil berhasil diperbarui.');
+    if (saved == true && mounted) {
+      _showMessage('Profil berhasil diperbarui.');
+    }
   }
 
   Future<void> _confirmLogout() async {
@@ -962,7 +1203,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            style: FilledButton.styleFrom(backgroundColor: const Color(0xFFDC2626)),
+            style: FilledButton.styleFrom(
+              backgroundColor: const Color(0xFFDC2626),
+            ),
             child: const Text('Keluar'),
           ),
         ],

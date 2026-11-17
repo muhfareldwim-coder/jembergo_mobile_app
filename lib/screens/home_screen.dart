@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../models/app_data.dart';
+import '../models/article_info.dart';
 import '../widgets/app_bottom_navigation.dart';
+import 'article_detail_screen.dart';
 import 'destination_detail_screen.dart';
 import 'explore_screen.dart';
 import 'map_screen.dart';
@@ -25,56 +29,93 @@ class _HomeScreenState extends State<HomeScreen> {
     'Wisata Bahari',
     'Wisata Buatan',
   ];
-  static const _featuredDestinations = {
-    'Semua': _FeaturedDestination(
-      name: 'Pantai Tanjung Papuma',
-      area: 'Wuluhan, Jember',
-      distance: '34 km',
-      rating: '4.9',
-      reviews: '1.4k',
-      price: 'Rp 25.000',
-      image: 'assets/home/papuma_featured.jpg',
-    ),
-    'Wisata Alam': _FeaturedDestination(
-      name: 'Air Terjun Tancak',
-      area: 'Panti, Jember',
-      distance: '16 km',
-      rating: '4.9',
-      reviews: '1.1k',
-      price: 'Rp 10.000',
-      image: 'assets/home/air_terjun_tancak.jpg',
-    ),
-    'Wisata Bahari': _FeaturedDestination(
-      name: 'Teluk Love',
-      area: 'Ambulu, Jember',
-      distance: '28 km',
-      rating: '4.8',
-      reviews: '850',
-      price: 'Rp 15.000',
-      image: 'assets/home/teluk_love.jpg',
-    ),
-    'Wisata Buatan': _FeaturedDestination(
-      name: 'Puncak Rembangan',
-      area: 'Arjasa, Jember',
-      distance: '12 km',
-      rating: '4.7',
-      reviews: '620',
-      price: 'Rp 20.000',
-      image: 'assets/home/puncak_rembangan.jpg',
-    ),
+  static const _papuma = _FeaturedDestination(
+    name: 'Pantai Tanjung Papuma',
+    area: 'Wuluhan, Jember',
+    distance: '34 km',
+    rating: '4.9',
+    reviews: '1.4k',
+    price: 'Rp 25.000',
+    image: 'assets/home/papuma_featured.jpg',
+  );
+  static const _tancak = _FeaturedDestination(
+    name: 'Air Terjun Tancak',
+    area: 'Panti, Jember',
+    distance: '16 km',
+    rating: '4.9',
+    reviews: '1.1k',
+    price: 'Rp 10.000',
+    image: 'assets/home/air_terjun_tancak.jpg',
+  );
+  static const _telukLove = _FeaturedDestination(
+    name: 'Teluk Love',
+    area: 'Ambulu, Jember',
+    distance: '28 km',
+    rating: '4.8',
+    reviews: '850',
+    price: 'Rp 15.000',
+    image: 'assets/home/teluk_love.jpg',
+  );
+  static const _rembangan = _FeaturedDestination(
+    name: 'Puncak Rembangan',
+    area: 'Arjasa, Jember',
+    distance: '12 km',
+    rating: '4.7',
+    reviews: '620',
+    price: 'Rp 20.000',
+    image: 'assets/home/puncak_rembangan.jpg',
+  );
+  static const _featuredDestinations = <String, List<_FeaturedDestination>>{
+    'Semua': [_papuma, _tancak, _telukLove, _rembangan],
+    'Wisata Alam': [_tancak, _rembangan],
+    'Wisata Bahari': [_telukLove, _papuma],
+    'Wisata Buatan': [_rembangan],
   };
 
+  final _featuredPageController = PageController();
+  final Set<String> _favoriteFeaturedDestinations = {};
+  Timer? _featuredRotationTimer;
   String _selectedCategory = 'Semua';
-  bool _isFavorite = false;
+  int _featuredIndex = 0;
 
-  _FeaturedDestination get _featuredDestination =>
+  List<_FeaturedDestination> get _currentFeaturedDestinations =>
       _featuredDestinations[_selectedCategory]!;
 
+  @override
+  void initState() {
+    super.initState();
+    _featuredRotationTimer = Timer.periodic(
+      const Duration(seconds: 5),
+      (_) => _advanceFeaturedDestination(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _featuredRotationTimer?.cancel();
+    _featuredPageController.dispose();
+    super.dispose();
+  }
+
   void _selectCategory(String category) {
+    if (_featuredPageController.hasClients) {
+      _featuredPageController.jumpToPage(0);
+    }
     setState(() {
       _selectedCategory = category;
-      _isFavorite = false;
+      _featuredIndex = 0;
     });
+  }
+
+  void _advanceFeaturedDestination() {
+    if (!mounted || !_featuredPageController.hasClients) return;
+    final nextIndex =
+        (_featuredIndex + 1) % _currentFeaturedDestinations.length;
+    _featuredPageController.animateToPage(
+      nextIndex,
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.easeInOut,
+    );
   }
 
   void _showComingSoon(String feature) {
@@ -300,144 +341,195 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildFeaturedDestination() {
-    final destination = _featuredDestination;
+    final destinations = _currentFeaturedDestinations;
 
-    return AspectRatio(
-      aspectRatio: 4 / 4.7,
-      child: GestureDetector(
-        onTap: () => _openDestination(destination.name),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: Stack(
-            fit: StackFit.expand,
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: 4 / 4.7,
+          child: PageView.builder(
+            key: const ValueKey('featured-destination-carousel'),
+            controller: _featuredPageController,
+            itemCount: destinations.length,
+            onPageChanged: (index) {
+              setState(() => _featuredIndex = index);
+            },
+            itemBuilder: (context, index) => _buildFeaturedDestinationCard(
+              destinations[index],
+              isCurrent: index == _featuredIndex,
+            ),
+          ),
+        ),
+        if (destinations.length > 1) ...[
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 350),
-                child: Image.asset(
-                  destination.image,
-                  key: ValueKey(destination.image),
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
-              ),
-              const DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Color(0xCC000000)],
-                    stops: [0.48, 1],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 14,
-                right: 14,
-                child: Material(
-                  color: Colors.white.withValues(alpha: 0.92),
-                  shape: const CircleBorder(),
-                  child: IconButton(
-                    onPressed: () => setState(() => _isFavorite = !_isFavorite),
-                    tooltip: _isFavorite
-                        ? 'Hapus dari favorit'
-                        : 'Simpan ke Favorit',
-                    icon: Icon(
-                      _isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: _isFavorite
-                          ? const Color(0xFFEF4444)
-                          : const Color(0xFF374151),
-                      size: 19,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 12,
-                right: 12,
-                bottom: 12,
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(15, 13, 14, 13),
+              for (var index = 0; index < destinations.length; index++)
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  width: index == _featuredIndex ? 18 : 6,
+                  height: 6,
+                  margin: const EdgeInsets.symmetric(horizontal: 3),
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.48),
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.2),
-                    ),
+                    color: index == _featuredIndex
+                        ? _navy
+                        : const Color(0xFFCBD5E1),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Wrap(
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              spacing: 6,
-                              children: [
-                                _ratingBadge(destination.rating),
-                                Text(
-                                  '(${destination.reviews} ulasan)  •  📍 '
-                                  '${destination.distance}',
-                                  style: TextStyle(
-                                    color: Color(0xFFD1D5DB),
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              destination.name,
-                              key: const ValueKey('featured-destination-name'),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            const SizedBox(height: 3),
-                            Text(
-                              destination.area,
-                              style: const TextStyle(
-                                color: Color(0xFFE5E7EB),
-                                fontSize: 11,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildFeaturedDestinationCard(
+    _FeaturedDestination destination, {
+    required bool isCurrent,
+  }) {
+    final isFavorite = _favoriteFeaturedDestinations.contains(destination.name);
+
+    return GestureDetector(
+      onTap: () => _openDestination(destination.name),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              destination.image,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            const DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.transparent, Color(0xCC000000)],
+                  stops: [0.48, 1],
+                ),
+              ),
+            ),
+            Positioned(
+              top: 14,
+              right: 14,
+              child: Material(
+                color: Colors.white.withValues(alpha: 0.92),
+                shape: const CircleBorder(),
+                child: IconButton(
+                  onPressed: () => setState(() {
+                    if (isFavorite) {
+                      _favoriteFeaturedDestinations.remove(destination.name);
+                    } else {
+                      _favoriteFeaturedDestinations.add(destination.name);
+                    }
+                  }),
+                  tooltip: isFavorite
+                      ? 'Hapus dari favorit'
+                      : 'Simpan ke Favorit',
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite
+                        ? const Color(0xFFEF4444)
+                        : const Color(0xFF374151),
+                    size: 19,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              left: 12,
+              right: 12,
+              bottom: 12,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(15, 13, 14, 13),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.48),
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.2),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Per tiket',
-                            style: TextStyle(
-                              color: Color(0xFFD1D5DB),
-                              fontSize: 10,
-                            ),
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            spacing: 6,
+                            children: [
+                              _ratingBadge(destination.rating),
+                              Text(
+                                '(${destination.reviews} ulasan)  •  📍 '
+                                '${destination.distance}',
+                                style: const TextStyle(
+                                  color: Color(0xFFD1D5DB),
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 3),
+                          const SizedBox(height: 5),
                           Text(
-                            destination.price,
+                            destination.name,
+                            key: isCurrent
+                                ? const ValueKey('featured-destination-name')
+                                : ValueKey(
+                                    'featured-destination-name-${destination.name}',
+                                  ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            destination.area,
+                            style: const TextStyle(
+                              color: Color(0xFFE5E7EB),
+                              fontSize: 11,
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Text(
+                          'Per tiket',
+                          style: TextStyle(
+                            color: Color(0xFFD1D5DB),
+                            fontSize: 10,
+                          ),
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          destination.price,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -805,18 +897,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildArticles() {
-    const articles = [
-      _Article(
-        category: 'Tips Wisata • 24 Okt 2024',
-        title: 'Panduan Lengkap Eksplorasi Tanjung Papuma dan Spot Foto Sunrise Terbaik',
-        image: 'assets/home/papuma_featured.jpg',
-      ),
-      _Article(
-        category: 'Eksplorasi • 21 Okt 2024',
-        title: 'Merasakan Kesegaran Alami Air Terjun Tancak di Kaki Gunung Argopuro',
-        image: 'assets/home/air_terjun_tancak.jpg',
-      ),
-    ];
+    final articles = ArticleInfo.articles;
 
     return Column(
       children: [
@@ -830,12 +911,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildArticleCard(_Article article) {
+  Widget _buildArticleCard(ArticleInfo article) {
     return Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(18),
       child: InkWell(
-        onTap: () => _showComingSoon('Artikel wisata'),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => ArticleDetailScreen(article: article),
+          ),
+        ),
         borderRadius: BorderRadius.circular(18),
         child: Container(
           padding: const EdgeInsets.all(9),
@@ -867,7 +952,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      article.category,
+                      article.cardLabel,
                       style: const TextStyle(
                         color: Color(0xFF0284C7),
                         fontSize: 10,
@@ -970,17 +1055,5 @@ class _NearbyDestination {
   final String rating;
   final String reviews;
   final String distance;
-  final String image;
-}
-
-class _Article {
-  const _Article({
-    required this.category,
-    required this.title,
-    required this.image,
-  });
-
-  final String category;
-  final String title;
   final String image;
 }

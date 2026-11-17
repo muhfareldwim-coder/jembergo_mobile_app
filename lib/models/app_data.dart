@@ -204,6 +204,8 @@ class TicketOrder {
 class AppData {
   AppData._();
 
+  static final ValueNotifier<String> language = ValueNotifier('ID');
+
   static final ValueNotifier<UserProfile> profile = ValueNotifier(
     const UserProfile(
       name: 'Budi Santoso',

@@ -22,6 +22,7 @@ Finder _verticalScrollable() {
 
 void main() {
   setUp(() {
+    AppData.language.value = 'ID';
     AppData.profile.value = const UserProfile(
       name: 'Budi Santoso',
       email: 'budi.santoso@email.com',
@@ -125,7 +126,9 @@ void main() {
     WidgetTester tester,
   ) async {
     _usePhoneViewport(tester);
-    await tester.pumpWidget(const MaterialApp(home: ProfileScreen()));
+    await tester.pumpWidget(
+      const MaterialApp(home: ProfileScreen(isGuest: false)),
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('Profil Saya'), findsOneWidget);
@@ -133,6 +136,7 @@ void main() {
     await tester.tap(find.text('Edit Informasi Pribadi'));
     await tester.pumpAndSettle();
 
+    expect(find.text('Edit & Detail Profil'), findsOneWidget);
     await tester.enterText(find.byType(TextFormField).at(0), 'Dewi Wisata');
     await tester.enterText(
       find.byType(TextFormField).at(1),
@@ -142,11 +146,102 @@ void main() {
       find.byType(TextFormField).at(2),
       '+62 812-9988-7766',
     );
-    await tester.tap(find.text('Simpan'));
-    await tester.pump();
+    final saveButton = find.text('Simpan Perubahan Profil');
+    await tester.scrollUntilVisible(
+      saveButton,
+      400,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(saveButton);
+    await tester.pumpAndSettle();
 
     expect(AppData.profile.value.name, 'Dewi Wisata');
     expect(AppData.profile.value.email, 'dewi@example.com');
     expect(AppData.profile.value.phone, '+62 812-9988-7766');
+  });
+
+  testWidgets('guest profile offers account entry points and no account form', (
+    WidgetTester tester,
+  ) async {
+    _usePhoneViewport(tester);
+    await tester.pumpWidget(const MaterialApp(home: ProfileScreen()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Pengunjung Tamu'), findsOneWidget);
+    expect(find.text('Keuntungan Memiliki Akun'), findsOneWidget);
+    expect(find.text('Belum Ada Favorit Tersimpan'), findsOneWidget);
+    expect(find.text('Masuk Akun'), findsOneWidget);
+    expect(find.text('Daftar Baru'), findsOneWidget);
+    expect(find.text('Edit Informasi Pribadi'), findsNothing);
+    expect(find.text('Logout / Keluar dari Akun'), findsNothing);
+
+    await tester.tap(find.text('Masuk Akun'));
+    await tester.pumpAndSettle();
+    expect(find.text('Masuk ke Akun'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Kembali'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Daftar Baru'));
+    await tester.pumpAndSettle();
+    expect(find.text('Buat Akun Baru'), findsOneWidget);
+  });
+
+  testWidgets('guest settings open language, help, legal, and about pages', (
+    WidgetTester tester,
+  ) async {
+    _usePhoneViewport(tester);
+    await tester.pumpWidget(const MaterialApp(home: ProfileScreen()));
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(
+      find.text('Pilihan Bahasa'),
+      300,
+      scrollable: _verticalScrollable().first,
+    );
+    await tester.ensureVisible(find.text('Pilihan Bahasa'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Pilihan Bahasa'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pilih Bahasa / Choose language'), findsOneWidget);
+    await tester.tap(find.text('English'));
+    await tester.pumpAndSettle();
+    expect(AppData.language.value, 'EN');
+
+    await tester.ensureVisible(find.text('Bantuan & Pusat Informasi'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Bantuan & Pusat Informasi'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pertanyaan yang sering diajukan'), findsOneWidget);
+    expect(find.text('Hubungi 112'), findsOneWidget);
+    await tester.tap(find.text('Bagaimana cara memesan tiket?'));
+    await tester.pumpAndSettle();
+    expect(
+      find.textContaining('Buka detail destinasi, pilih Pesan Tiket'),
+      findsOneWidget,
+    );
+
+    await tester.tap(find.byTooltip('Kembali'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Syarat & Ketentuan'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Syarat & Ketentuan'));
+    await tester.pumpAndSettle();
+    expect(find.text('Ketentuan penggunaan layanan'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Kembali'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Kebijakan Privasi'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Kebijakan Privasi'));
+    await tester.pumpAndSettle();
+    expect(find.text('Informasi pengelolaan data'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Kembali'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Tentang JemberGo'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Tentang JemberGo'));
+    await tester.pumpAndSettle();
+    expect(find.text('Versi 1.2.0'), findsOneWidget);
   });
 }

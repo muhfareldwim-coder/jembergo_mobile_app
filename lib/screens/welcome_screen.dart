@@ -95,7 +95,7 @@ class WelcomeScreen extends StatelessWidget {
                       ],
                     ),
                     child: Image.asset(
-                      'assets/onboarding/jembergo_logo.png',
+                      'assets/logo jembergonobackgroud.png',
                       fit: BoxFit.contain,
                     ),
                   ),

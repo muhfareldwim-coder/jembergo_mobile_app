@@ -125,4 +125,68 @@ void main() {
     await tester.pumpAndSettle();
     expect(featuredName(), 'Pantai Tanjung Papuma');
   });
+
+  testWidgets('featured destinations can auto-rotate and be swiped', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MaterialApp(home: HomeScreen()));
+
+    String featuredName() {
+      return tester
+          .widget<Text>(find.byKey(const ValueKey('featured-destination-name')))
+          .data!;
+    }
+
+    expect(featuredName(), 'Pantai Tanjung Papuma');
+
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
+    expect(featuredName(), 'Air Terjun Tancak');
+
+    final carousel = find.byKey(
+      const ValueKey('featured-destination-carousel'),
+    );
+    await tester.ensureVisible(carousel);
+    await tester.pumpAndSettle();
+    await tester.fling(carousel, const Offset(-500, 0), 1000);
+    await tester.pumpAndSettle();
+    expect(featuredName(), 'Teluk Love');
+  });
+
+  testWidgets('home article opens its detail and linked destination', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(const MaterialApp(home: HomeScreen()));
+
+    final articleCardTitle = find.textContaining(
+      'Panduan Lengkap Eksplorasi Tanjung Papuma',
+    );
+    await tester.scrollUntilVisible(
+      articleCardTitle,
+      400,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(articleCardTitle);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Lihat Destinasi'), findsOneWidget);
+    final articleSection = find.text('Berburu foto saat pagi');
+    await tester.scrollUntilVisible(
+      articleSection,
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.pumpAndSettle();
+    expect(articleSection, findsOneWidget);
+
+    await tester.tap(find.text('Lihat Destinasi'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pantai Tanjung Papuma'), findsOneWidget);
+  });
 }

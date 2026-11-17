@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 56,
                           width: 140,
                           child: Image.asset(
-                            'assets/onboarding/jembergo_logo.png',
+                            'assets/logo jembergonobackgroud.png',
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -321,8 +321,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 22),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      Wrap(
+                        alignment: WrapAlignment.center,
                         children: [
                           const Text(
                             'Belum punya akun?',
