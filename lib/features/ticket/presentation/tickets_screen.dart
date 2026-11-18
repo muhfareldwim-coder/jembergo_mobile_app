@@ -131,18 +131,6 @@ class _TicketsScreenState extends State<TicketsScreen> {
       ),
       child: Row(
         children: [
-          Image.asset(
-            'assets/logo jembergonobackgroud.png',
-            width: 42,
-            height: 36,
-            fit: BoxFit.contain,
-          ),
-          const SizedBox(width: 8),
-          const SizedBox(
-            height: 28,
-            child: VerticalDivider(width: 1, color: Color(0xFFE2E8F0)),
-          ),
-          const SizedBox(width: 10),
           const Expanded(
             child: Text(
               'Tiket Saya',
@@ -480,19 +468,22 @@ class _TicketsScreenState extends State<TicketsScreen> {
         ),
         const SizedBox(width: 6),
         Flexible(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
-            decoration: BoxDecoration(
-              color: statusBg,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Text(
-              status,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: statusColor,
-                fontSize: 9,
-                fontWeight: FontWeight.w800,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
+              decoration: BoxDecoration(
+                color: statusBg,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Text(
+                status,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: statusColor,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -566,21 +557,31 @@ class _TicketsScreenState extends State<TicketsScreen> {
               ),
               const SizedBox(height: 7),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    isPending ? 'Total tagihan' : 'Total',
-                    style: const TextStyle(
-                      color: Color(0xFF64748B),
-                      fontSize: 10,
+                  Expanded(
+                    child: Text(
+                      isPending ? 'Total tagihan' : 'Total',
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Color(0xFF64748B),
+                        fontSize: 10,
+                      ),
                     ),
                   ),
-                  Text(
-                    'Rp ${_formatPrice(ticket.total)}',
-                    style: TextStyle(
-                      color: isPending ? const Color(0xFFE11D48) : _navy,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w800,
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Rp ${_formatPrice(ticket.total)}',
+                        textAlign: TextAlign.end,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: isPending ? const Color(0xFFE11D48) : _navy,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
                   ),
                 ],

@@ -122,6 +122,27 @@ void main() {
     expect(find.text('JGO-20261028-8921'), findsOneWidget);
   });
 
+  testWidgets('ticket header hides logo and keeps status in top-right corner', (
+    WidgetTester tester,
+  ) async {
+    _usePhoneViewport(tester);
+    await tester.pumpWidget(const MaterialApp(home: TicketsScreen()));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.image(const AssetImage('assets/logo jembergonobackgroud.png')),
+      findsNothing,
+    );
+
+    final bookingCode = tester.getTopLeft(find.text('JGO-20261028-8921'));
+    final status = tester.getRect(find.text('Lunas • Siap Dipakai'));
+    final price = tester.getRect(find.text('Rp 75.000'));
+    expect(status.left, greaterThan(bookingCode.dx));
+    expect(status.top, lessThan(bookingCode.dy));
+    expect(status.right, greaterThan(tester.view.physicalSize.width - 50));
+    expect(price.right, greaterThan(tester.view.physicalSize.width - 50));
+  });
+
   testWidgets('profile form validates and saves updated account details', (
     WidgetTester tester,
   ) async {

@@ -4,6 +4,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jembergo_mobile_app/features/destination/presentation/explore_screen.dart';
 
 void main() {
+  testWidgets('ExploreScreen uses the shared page background', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MaterialApp(home: ExploreScreen()));
+
+    expect(
+      tester.widget<Scaffold>(find.byType(Scaffold).first).backgroundColor,
+      const Color(0xFFF8FAFC),
+    );
+  });
+
   testWidgets('ExploreScreen renders all core elements', (
     WidgetTester tester,
   ) async {

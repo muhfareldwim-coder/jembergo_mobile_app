@@ -24,7 +24,7 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   // Theme colors from JemberGo design system
   static const _navy = Color(0xFF0C192C);
-  static const _background = Color(0xFFFAF8FF);
+  static const _background = Color(0xFFF8FAFC);
   static const _primaryBlue = Color(0xFF006194);
   static const _forestGreen = Color(0xFF006C49);
   static const _rose = Color(0xFFF43F5E);
@@ -390,8 +390,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       const SizedBox(height: 14),
                       _buildSearchBar(),
                       const SizedBox(height: 14),
-                      _buildCategoryChips(),
-                      const SizedBox(height: 14),
                       _buildSortTrigger(),
                       const SizedBox(height: 14),
                       if (destinations.isEmpty)
@@ -625,56 +623,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     );
   }
 
-  Widget _buildCategoryChips() {
-    return SizedBox(
-      height: 38,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        clipBehavior: Clip.none,
-        itemCount: _categories.length,
-        separatorBuilder: (_, _) => const SizedBox(width: 8),
-        itemBuilder: (context, index) {
-          final cat = _categories[index];
-          final isSelected = cat.id == _selectedCategory;
 
-          return InkWell(
-            onTap: () {
-              setState(() => _selectedCategory = cat.id);
-            },
-            borderRadius: BorderRadius.circular(20),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: isSelected ? _navy : Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: isSelected ? _navy : _borderSlate),
-                boxShadow: isSelected
-                    ? const [
-                        BoxShadow(
-                          color: Color(0x1F0C192C),
-                          blurRadius: 6,
-                          offset: Offset(0, 2),
-                        ),
-                      ]
-                    : null,
-              ),
-              child: Center(
-                child: Text(
-                  cat.label,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : const Color(0xFF334155),
-                    fontSize: 12,
-                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
 
   Widget _buildSortTrigger() {
     return Align(
